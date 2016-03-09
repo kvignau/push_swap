@@ -12,107 +12,93 @@
 
 #include "push_swap.h"
 
-void		ft_affiche_file(t_file file)
+void		ft_affiche_file(t_dbllist *lst)
 {
 	size_t	i;
+	t_elem	*tmp;
 
-	i = file.start;
-	if (i == file.len)
-		ft_printf("%d ", file.tab[i]);
-	else
-	{
-		while (i < file.len)
-		{
-			ft_printf("%d ", file.tab[i]);
-			i++;
-		}
-	}
 	i = 0;
-	while (i <= file.end && file.end < file.start)
+	tmp = lst->head;
+	while (tmp)
 	{
-		ft_printf("%d ", file.tab[i]);
-		i++;
+		ft_printf("%d ", tmp->content);
+		tmp = tmp->next;
 	}
 }
-void		ft_rot_file(t_file *file)
-{
-	file->start = file->end;
-	if (file->end == 0)
-		file->end = file->len - 1;
-	else
-		file->end--;
-}
 
-void		ft_swap_file(t_file *file)
-{
-	int		c;
-	size_t	x;
+// void		ft_rot_file(t_file *file)
+// {
+// 	file->start = file->end;
+// 	if (file->end == 0)
+// 		file->end = file->len - 1;
+// 	else
+// 		file->end--;
+// }
 
-	c = file->tab[file->end];
-	if (file->end == 0)
-		x = file->len - 1;
-	else
-		x = file->end - 1;
-	file->tab[file->end] = file->tab[x];
-	file->tab[x] = c;
-}
+// void		ft_swap_file(t_file *file)
+// {
+// 	int		c;
+// 	size_t	x;
 
-void		ft_pb_file(t_file *a, t_file *b)
-{
-	if (a->len != 0)
-	{
-		if (b->len != 0)
-			b->end++;
-		b->len++;
-		b->tab[b->end] = a->tab[a->end];
-		if (a->end == 0)
-			a->end = a->len - 1;
-		else
-			a->end--;
-		a->len--;
-	}
-}
+// 	c = file->tab[file->end];
+// 	if (file->end == 0)
+// 		x = file->len - 1;
+// 	else
+// 		x = file->end - 1;
+// 	file->tab[file->end] = file->tab[x];
+// 	file->tab[x] = c;
+// }
+
+// void		ft_pb_file(t_file *a, t_file *b)
+// {
+// 	if (a->len != 0)
+// 	{
+// 		if (b->len != 0)
+// 			b->end++;
+// 		b->len++;
+// 		b->tab[b->end] = a->tab[a->end];
+// 		if (a->end == 0)
+// 			a->end = a->len - 1;
+// 		else
+// 			a->end--;
+// 		a->len--;
+// 	}
+// }
 
 int			main(int ac, char **av)
 {
-	t_file	a;
-	t_file	b;
-	int		i;
+	t_dbllist	*a;
+	t_dbllist	*b;
+	int			i;
 
 	i = 1;
-	a.tab = (int *)malloc(sizeof(int) * (ac - 1));
-	a.start = 0;
-	a.len = ac - 1;
-	a.end = a.len - 1;
-	b.tab = (int *)malloc(sizeof(int) * (ac - 1));
-	b.start = 0;
-	b.end = 0;
-	b.len = 0;
+	a = ft_lstdblnew();
+	b = ft_lstdblnew();
 	while (i < ac)
 	{
-		a.tab[a.end - i + 1] = ft_atoi(av[i]);
+		ft_lstdbladdfront(&a, ft_atoi(av[i]), sizeof(av[i]));
 		i++;
 	}
 	ft_affiche_file(a);
 	ft_putstr("\n");
 
-	ft_rot_file(&a);
-	ft_affiche_file(a);
-	ft_putstr("\n");
-
-	// ft_swap_file(&a);
+	// ft_rot_file(&a);
 	// ft_affiche_file(a);
 	// ft_putstr("\n");
 
-	ft_pb_file(&a, &b);
-	ft_affiche_file(a);
-	ft_putstr("\n");
-	ft_affiche_file(b);
+	// // ft_swap_file(&a);
+	// // ft_affiche_file(a);
+	// // ft_putstr("\n");
 
-	ft_putstr("\n");
-	ft_pb_file(&b, &a);
-	ft_affiche_file(a);
-	ft_putstr("\n");
-	ft_affiche_file(b);
+	// ft_pb_file(&a, &b);
+	// ft_affiche_file(a);
+	// ft_putstr("\n");
+	// ft_affiche_file(b);
+
+	// ft_putstr("\n");
+	// ft_pb_file(&b, &a);
+	// ft_affiche_file(a);
+	// ft_putstr("\n");
+	// ft_affiche_file(b);
 	return (0);
 }

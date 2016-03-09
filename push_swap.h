@@ -12,10 +12,23 @@
 
 #include "libft/libft.h"
 
-typedef struct 		s_file
+typedef	struct		s_node
 {
-	int			*tab;
-	size_t		start;
-	size_t		end;
-	size_t		len;
-}				t_file;
+	int				content;
+	struct s_elem	*prev;
+	struct s_elem	*next;
+}					t_node;
+
+typedef	struct		s_lst
+{
+	t_elem			*tail;
+	t_elem			*head;
+}					t_lst;
+
+void				ft_linit(t_lst **list);
+void				ft_ladd(t_lst **list, int content,\
+					size_t cont_size);
+void				ft_lnew(t_lst **list);
+void				ft_ldel(t_lst **list);
+void				ft_laddfront(t_lst **list, int content,\
+					size_t cont_size);
