@@ -14,21 +14,14 @@
 
 typedef	struct		s_node
 {
-	int				content;
-	struct s_elem	*prev;
-	struct s_elem	*next;
+	int				value;
+	struct s_node	*prev;
+	struct s_node	*next;
 }					t_node;
 
-typedef	struct		s_lst
+typedef	struct		s_dbl
 {
-	t_elem			*tail;
-	t_elem			*head;
-}					t_lst;
-
-void				ft_linit(t_lst **list);
-void				ft_ladd(t_lst **list, int content,\
-					size_t cont_size);
-void				ft_lnew(t_lst **list);
-void				ft_ldel(t_lst **list);
-void				ft_laddfront(t_lst **list, int content,\
-					size_t cont_size);
+	size_t			length;
+	t_node			*tail;
+	t_node			*head;
+}					t_dbl;
