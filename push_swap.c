@@ -93,19 +93,19 @@ void		ft_rot_pile(t_dbl **lst)
 	(*lst)->head->prev = NULL;
 }
 
-// void		ft_swap_file(t_file *file)
-// {
-// 	int		c;
-// 	size_t	x;
+void		ft_swap_pile(t_dbl **lst)
+{
+	t_node	*tmp;
+	int		n;
 
-// 	c = file->tab[file->end];
-// 	if (file->end == 0)
-// 		x = file->len - 1;
-// 	else
-// 		x = file->end - 1;
-// 	file->tab[file->end] = file->tab[x];
-// 	file->tab[x] = c;
-// }
+	n = 0;
+	tmp = NULL;
+	if ((*lst)->length <= 1)
+		return ;
+	n = (*lst)->tail->value;
+	(*lst)->tail->value = (*lst)->tail->prev->value;
+	(*lst)->tail->prev->value = n;
+}
 
 void		ft_push_pile(t_dbl **a, t_dbl **b)
 {
@@ -157,6 +157,7 @@ int			main(int ac, char **av)
 	ft_affiche_pile(a);
 	ft_putstr("\n");
 
+	ft_printf("\n--- test rot ---\n");
 	ft_rev_rot_pile(&a);
 	ft_printf("liste a : ");
 	ft_affiche_pile(a);
@@ -177,9 +178,11 @@ int			main(int ac, char **av)
 	ft_affiche_pile(a);
 	ft_putstr("\n");
 
-	// // ft_swap_file(&a);
-	// // ft_affiche_file(a);
-	// // ft_putstr("\n");
+	ft_printf("\n--- test swap ---\n");
+	ft_printf("liste a : ");
+	ft_swap_pile(&a);
+	ft_affiche_pile(a);
+	ft_putstr("\n");
 
 	ft_printf("\n--- push ---\n");
 	ft_push_pile(&a, &b);
@@ -244,6 +247,22 @@ int			main(int ac, char **av)
 	ft_rot_pile(&b);
 	ft_printf("liste b : ");
 	ft_affiche_pile(b);
+	ft_putstr("\n");
+
+	ft_printf("\n--- test swap ---\n");
+	ft_swap_pile(&a);
+	ft_printf("liste a : ");
+	ft_affiche_pile(a);
+	ft_putstr("\n");
+
+	ft_swap_pile(&a);
+	ft_printf("liste a : ");
+	ft_affiche_pile(a);
+	ft_putstr("\n");
+
+	ft_swap_pile(&a);
+	ft_printf("liste a : ");
+	ft_affiche_pile(a);
 	ft_putstr("\n");
 
 	return (0);
