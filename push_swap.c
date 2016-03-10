@@ -119,6 +119,7 @@ void		ft_pb_pile(t_dbl **a, t_dbl **b)
 		return ;
 	}
 	(*a)->length--;
+	(*b)->length++;
 }
 
 int			main(int ac, char **av)
@@ -137,6 +138,21 @@ int			main(int ac, char **av)
 		ft_ldbladdfront(&a, elem);
 		i++;
 	}
+	ft_printf("liste a : ");
+	ft_affiche_pile(a);
+	ft_putstr("\n");
+
+	ft_rot_pile(&a);
+	ft_printf("liste a : ");
+	ft_affiche_pile(a);
+	ft_putstr("\n");
+	
+	ft_rot_pile(&a);
+	ft_printf("liste a : ");
+	ft_affiche_pile(a);
+	ft_putstr("\n");
+	
+	ft_rot_pile(&a);
 	ft_printf("liste a : ");
 	ft_affiche_pile(a);
 	ft_putstr("\n");
@@ -172,6 +188,14 @@ int			main(int ac, char **av)
 	ft_affiche_pile(b);
 	ft_putstr("\n");
 	// ft_pb_pile(&a, &b);
+	ft_pb_pile(&b, &a);
+	ft_printf("liste a : ");
+	ft_affiche_pile(a);
+	ft_putstr("\n");
+	ft_printf("liste b : ");	
+	ft_affiche_pile(b);
+	ft_putstr("\n");
+
 	ft_pb_pile(&b, &a);
 	ft_printf("liste a : ");
 	ft_affiche_pile(a);
