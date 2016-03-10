@@ -63,7 +63,7 @@ void		ft_affiche_pile(t_dbl *lst)
 	}
 }
 
-void		ft_rot_pile(t_dbl **lst)
+void		ft_rev_rot_pile(t_dbl **lst)
 {
 	t_node	*tmp;
 
@@ -76,6 +76,21 @@ void		ft_rot_pile(t_dbl **lst)
 	(*lst)->head = (*lst)->tail;
 	(*lst)->tail = tmp;
 	(*lst)->tail->next = NULL;
+}
+
+void		ft_rot_pile(t_dbl **lst)
+{
+	t_node	*tmp;
+
+	if ((*lst)->length <= 1)
+		return ;
+	tmp = (*lst)->head->next;
+	(*lst)->head->next = NULL;
+	(*lst)->head->prev = (*lst)->tail;
+	(*lst)->tail->next = (*lst)->head;
+	(*lst)->tail = (*lst)->head;
+	(*lst)->head = tmp;
+	(*lst)->head->prev = NULL;
 }
 
 // void		ft_swap_file(t_file *file)
@@ -92,7 +107,7 @@ void		ft_rot_pile(t_dbl **lst)
 // 	file->tab[x] = c;
 // }
 
-void		ft_pb_pile(t_dbl **a, t_dbl **b)
+void		ft_push_pile(t_dbl **a, t_dbl **b)
 {
 	t_node	*tmp;
 
@@ -142,22 +157,22 @@ int			main(int ac, char **av)
 	ft_affiche_pile(a);
 	ft_putstr("\n");
 
-	ft_rot_pile(&a);
+	ft_rev_rot_pile(&a);
 	ft_printf("liste a : ");
 	ft_affiche_pile(a);
 	ft_putstr("\n");
 	
-	ft_rot_pile(&a);
+	ft_rev_rot_pile(&a);
 	ft_printf("liste a : ");
 	ft_affiche_pile(a);
 	ft_putstr("\n");
 	
-	ft_rot_pile(&a);
+	ft_rev_rot_pile(&a);
 	ft_printf("liste a : ");
 	ft_affiche_pile(a);
 	ft_putstr("\n");
 
-	ft_rot_pile(&a);
+	ft_rev_rot_pile(&a);
 	ft_printf("liste a : ");
 	ft_affiche_pile(a);
 	ft_putstr("\n");
@@ -166,29 +181,32 @@ int			main(int ac, char **av)
 	// // ft_affiche_file(a);
 	// // ft_putstr("\n");
 
-	ft_pb_pile(&a, &b);
+	ft_printf("\n--- push ---\n");
+	ft_push_pile(&a, &b);
 	ft_printf("liste a : ");
 	ft_affiche_pile(a);
 	ft_putstr("\n");
 	ft_printf("liste b : ");
 	ft_affiche_pile(b);
 	ft_putstr("\n");
-	ft_pb_pile(&a, &b);
+
+	ft_push_pile(&a, &b);
 	ft_printf("liste a : ");
 	ft_affiche_pile(a);
 	ft_putstr("\n");
 	ft_printf("liste b : ");
 	ft_affiche_pile(b);
 	ft_putstr("\n");
-	ft_pb_pile(&a, &b);
+
+	ft_push_pile(&a, &b);
 	ft_printf("liste a : ");
 	ft_affiche_pile(a);
 	ft_putstr("\n");
 	ft_printf("liste b : ");
 	ft_affiche_pile(b);
 	ft_putstr("\n");
-	// ft_pb_pile(&a, &b);
-	ft_pb_pile(&b, &a);
+
+	ft_push_pile(&b, &a);
 	ft_printf("liste a : ");
 	ft_affiche_pile(a);
 	ft_putstr("\n");
@@ -196,17 +214,37 @@ int			main(int ac, char **av)
 	ft_affiche_pile(b);
 	ft_putstr("\n");
 
-	ft_pb_pile(&b, &a);
+	ft_printf("\n--- test rev rot ---\n");
+	ft_rev_rot_pile(&a);
 	ft_printf("liste a : ");
 	ft_affiche_pile(a);
 	ft_putstr("\n");
+
+	ft_rev_rot_pile(&b);
 	ft_printf("liste b : ");
 	ft_affiche_pile(b);
+	ft_putstr("\n");
 
-	// ft_putstr("\n");
-	// ft_pb_file(&b, &a);
-	// ft_affiche_file(a);
-	// ft_putstr("\n");
-	// ft_affiche_file(b);
+	ft_printf("\n--- test rot ---\n");
+	ft_rot_pile(&a);
+	ft_printf("liste a : ");
+	ft_affiche_pile(a);
+	ft_putstr("\n");
+
+	ft_rot_pile(&a);
+	ft_printf("liste a : ");
+	ft_affiche_pile(a);
+	ft_putstr("\n");
+
+	ft_rot_pile(&a);
+	ft_printf("liste a : ");
+	ft_affiche_pile(a);
+	ft_putstr("\n");
+
+	ft_rot_pile(&b);
+	ft_printf("liste b : ");
+	ft_affiche_pile(b);
+	ft_putstr("\n");
+
 	return (0);
 }
