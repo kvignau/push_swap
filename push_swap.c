@@ -118,6 +118,7 @@ void		ft_push_pile(t_dbl **a, t_dbl **b)
 	{
 		(*b)->head = (*a)->tail;
 		(*b)->tail = (*a)->tail;
+		(*b)->tail->prev = NULL;
 	}
 	else
 	{
@@ -135,6 +136,28 @@ void		ft_push_pile(t_dbl **a, t_dbl **b)
 	}
 	(*a)->length--;
 	(*b)->length++;
+}
+
+int			ft_min_pile(t_dbl *a, int *pos)
+{
+	t_node	*tmp;
+	int		min;
+	int		cpt;
+
+	tmp = a->head;
+	cpt = 0;
+	min = tmp->value;
+	while (tmp)
+	{
+		if (tmp->value < min)
+		{
+			min = tmp->value;
+			*pos = cpt;
+		}
+		cpt++;
+		tmp = tmp->next;
+	}
+	return (min);
 }
 
 int			list_ok(t_dbl *lst)

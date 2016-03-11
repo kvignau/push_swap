@@ -38,5 +38,6 @@ void		ft_rot_pile(t_dbl **lst);
 void		ft_swap_pile(t_dbl **lst);
 void		ft_push_pile(t_dbl **a, t_dbl **b);
 int			list_ok(t_dbl *lst);
+int			ft_min_pile(t_dbl *a, int *pos);
 
 #endif
