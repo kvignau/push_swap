@@ -14,7 +14,7 @@ NAME = push_swap
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = push_swap.c
+SRC = push_swap.c main.c
 
 OBJ = $(SRC:%.c=%.o)
 
