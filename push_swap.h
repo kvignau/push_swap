@@ -13,7 +13,8 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include "libft/libft.h"
+#include "libft/includes/libft.h"
+#include "libft/ft_printf/includes/ft_printf.h"
 
 typedef	struct		s_node
 {
@@ -38,6 +39,7 @@ void		ft_rot_pile(t_dbl **lst);
 void		ft_swap_pile(t_dbl **lst);
 void		ft_push_pile(t_dbl **a, t_dbl **b);
 int			list_ok(t_dbl *lst);
+int			list_rev_ok(t_dbl *lst);
 int			ft_min_pile(t_dbl *a, int *pos);
 
 #endif

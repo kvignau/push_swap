@@ -132,6 +132,7 @@ void		ft_push_pile(t_dbl **a, t_dbl **b)
 	else
 	{
 		ft_initdbl(a);
+		(*b)->length++;
 		return ;
 	}
 	(*a)->length--;
@@ -169,7 +170,23 @@ int			list_ok(t_dbl *lst)
 	tmp = lst->head;
 	while (tmp->next)
 	{
-		if (tmp->value < tmp->next->value)
+		if (tmp->value >= tmp->next->value)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+int			list_rev_ok(t_dbl *lst)
+{
+	t_node	*tmp;
+
+	if (lst->length == 0)
+		return (1);
+	tmp = lst->head;
+	while (tmp->next)
+	{
+		if (tmp->value <= tmp->next->value)
 			return (0);
 		tmp = tmp->next;
 	}
