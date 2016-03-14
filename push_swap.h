@@ -41,5 +41,7 @@ void		ft_push_pile(t_dbl **a, t_dbl **b);
 int			list_ok(t_dbl *lst);
 int			list_rev_ok(t_dbl *lst);
 int			ft_min_pile(t_dbl *a, int *pos);
+intmax_t		ft_atoi_imax(const char *str);
+int			ft_error(char *str);
 
 #endif
