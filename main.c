@@ -21,6 +21,29 @@ int			ft_error(char *str)
 	return (1);
 }
 
+int			ft_same_nbr(t_dbl *lst)
+{
+	t_node		*tmp;
+	t_node		*tmp1;
+	int		nb;
+
+	tmp = lst->head->next;
+	tmp1 = lst->head;
+	while (tmp1->next)
+	{
+		nb = tmp1->value;
+		while (tmp)
+		{
+			if (tmp->value == nb)
+				return (0);
+			tmp = tmp->next;
+		}
+		tmp1 = tmp1->next;
+		tmp = tmp1->next;
+	}
+	return (1);
+}
+
 int			main(int ac, char **av)
 {
 	t_dbl		*a;
@@ -42,6 +65,11 @@ int			main(int ac, char **av)
 		ft_lnew(&elem, ft_atoi(av[i]));
 		ft_ldbladdfront(&a, elem);
 		i++;
+	}
+	if (!ft_same_nbr(a))
+	{
+		ft_printf("Error\n");
+		return (0);//free liste avant erreur
 	}
 	while((!list_rev_ok(a) || !list_ok(b)))// && b->tail->value < a->tail->value)
 	{
