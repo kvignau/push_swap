@@ -29,9 +29,16 @@ typedef	struct		s_dbl
 	t_node			*head;
 }					t_dbl;
 
+typedef	struct		s_option
+{
+	int		c;
+	int		b;
+}					t_option;
+
 void			ft_initdbl(t_dbl **lst);
 void			ft_lnew(t_node **node, int value);
 void			ft_ldbladdfront(t_dbl **lst, t_node *new_elem);
+void			ft_ldbldel(t_dbl **list);
 void			ft_affiche_pile(t_dbl *lst);
 void			ft_affiche_pile_color(t_dbl *lst, int ok);
 void			ft_affiche(t_dbl *a, t_dbl *b);

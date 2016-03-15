@@ -1,5 +1,12 @@
 #include "push_swap.h"
 
+int			ft_print_error(t_dbl **a)
+{
+	ft_printf("Error\n");
+	ft_ldbldel(a);
+	return (0);
+}
+
 int			ft_error(char *str)
 {
 	intmax_t	test;
@@ -50,25 +57,30 @@ int			ft_same_nbr(t_dbl *lst)
 	return (1);
 }
 
-void		push_swap(t_dbl **a, t_dbl **b)
+void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 {
 	int		pos;
 	int		i;
+	int		tour;
 
+	tour = 0;
 	while((!list_rev_ok(*a) || !list_ok(*b)))// && b->tail->value < a->tail->value)
 	{
 		i = ft_min_pile(*a, &pos);
+		if (tour != 0)
+			ft_printf(" ");
+		tour++;
 		if ((*a)->tail->prev && i == (*a)->tail->prev->value)
 		{
 			ft_swap_pile(a);
-			ft_printf("sa ");
+			ft_printf("sa");
 		}
 		else if (pos > (int)(*a)->length / 2)
 		{
 			while ((*a)->tail->value != i)
 			{
 				ft_rev_rot_pile(a);
-				ft_printf("rra ");
+				ft_printf("rra");
 			}
 		}
 		else
@@ -76,16 +88,20 @@ void		push_swap(t_dbl **a, t_dbl **b)
 			while ((*a)->tail->value != i)
 			{
 				ft_rot_pile(a);
-				ft_printf("ra ");
+				ft_printf("ra");
 			}
 		}
 		if ((!list_rev_ok(*a) || !list_ok(*b)))
 		{
 			ft_push_pile(a, b);
-			ft_printf("pb \n");
+			ft_printf("pb");
 		}
-		ft_affiche_color(*a, *b, 0);
-		ft_affiche(*a, *b);
+		if (option.b)
+		{
+			if (option.c)
+				ft_affiche_color(*a, *b, 0);
+			ft_affiche(*a, *b);
+		}
 	}
 	while ((*b)->length != 0)
 	{
@@ -101,10 +117,7 @@ int		ft_putelem(int i, int ac, char **av, t_dbl **a)
 	while (i < ac)
 	{
 		if (!ft_error(av[i]))
-		{
-			ft_putstr("Error\n");
-			return (0);
-		}
+			return (ft_print_error(a));
 		ft_lnew(&elem, ft_atoi(av[i]));
 		ft_ldbladdfront(a, elem);
 		i++;
@@ -112,36 +125,62 @@ int		ft_putelem(int i, int ac, char **av, t_dbl **a)
 	return (1);
 }
 
+int			gestion_option(int *i, t_option *option, int ac, char **av)
+{
+	int		j;
+
+	j = 0;
+	if (ac > 2)
+	{
+		if (av[*i][j] && av[*i][j] == '-')
+		{
+			j++;
+			while (av[*i][j])
+			{	
+				if (av[*i][j] == 'c' && option->c == 0)
+					option->c = 1;
+				else if (av[*i][j] == 'b' && option->b == 0)
+					option->b = 1;
+				else
+					ft_printf("Options valables: \nb -> affichage listes intermediaires\nc -> ajout couleur aux listes");
+				(*i)++;
+			}
+		}
+		return (1);
+	}
+	else
+		return (0);
+}
+
+void		init_option(t_option *opt)
+{
+	opt->c = 0;
+	opt->b = 0;
+}
+
 int			main(int ac, char **av)
 {
 	t_dbl		*a;
 	t_dbl		*b;
 	int			i;
-	int			option;
+	t_option	option;
 
-	option = 0;
+	init_option(&option);
 	i = 1;
-	if (ac > 2)
-	{
-		if (ft_strcmp(av[1], "-v") == 0)
-		{
-			option = 1;
-			i++;
-		}
-	}
-	else
+	if (!gestion_option(&i, &option, ac, av))
 		return (0);
 	ft_initdbl(&a);
 	ft_initdbl(&b);
 	if (!ft_putelem(i, ac, av, &a))
 		return (0);
 	if (!ft_same_nbr(a))
-	{
-		ft_printf("Error\n");
-		return (0);//free liste avant erreur
-	}
-	push_swap(&a, &b);
-	ft_affiche_color(a, b, 1);
-	ft_affiche(a, b);
+		return (ft_print_error(&a));
+	push_swap(&a, &b, option);
+	if (option.c)
+		ft_affiche_color(a, b, 1);
+	else
+		ft_affiche(a, b);
+	ft_ldbldel(&a);
+	ft_ldbldel(&b);
 	return (0);
 }
