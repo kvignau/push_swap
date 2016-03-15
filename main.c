@@ -6,8 +6,14 @@ int			ft_error(char *str)
 	int		i;
 
 	i = 0;
+	if (!str)
+		return (0);
 	if (str[0] == '-' || str[0] == '+')
+	{
+		if (!str[1] || !ft_isdigit(str[1]))
+			return (0);
 		i++;
+	}
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
@@ -44,17 +50,54 @@ int			ft_same_nbr(t_dbl *lst)
 	return (1);
 }
 
-int			main(int ac, char **av)
+void		push_swap(t_dbl **a, t_dbl **b)
 {
-	t_dbl		*a;
-	t_dbl		*b;
-	t_node		*elem;
-	int		i;
 	int		pos;
+	int		i;
 
-	i = 1;
-	ft_initdbl(&a);
-	ft_initdbl(&b);
+	while((!list_rev_ok(*a) || !list_ok(*b)))// && b->tail->value < a->tail->value)
+	{
+		i = ft_min_pile(*a, &pos);
+		if ((*a)->tail->prev && i == (*a)->tail->prev->value)
+		{
+			ft_swap_pile(a);
+			ft_printf("sa ");
+		}
+		else if (pos > (int)(*a)->length / 2)
+		{
+			while ((*a)->tail->value != i)
+			{
+				ft_rev_rot_pile(a);
+				ft_printf("rra ");
+			}
+		}
+		else
+		{
+			while ((*a)->tail->value != i)
+			{
+				ft_rot_pile(a);
+				ft_printf("ra ");
+			}
+		}
+		if ((!list_rev_ok(*a) || !list_ok(*b)))
+		{
+			ft_push_pile(a, b);
+			ft_printf("pb \n");
+		}
+		ft_affiche_color(*a, *b, 0);
+		ft_affiche(*a, *b);
+	}
+	while ((*b)->length != 0)
+	{
+		ft_push_pile(b, a);
+		ft_printf("pa ");
+	}
+}
+
+int		ft_putelem(int i, int ac, char **av, t_dbl **a)
+{
+	t_node	*elem;
+
 	while (i < ac)
 	{
 		if (!ft_error(av[i]))
@@ -63,58 +106,42 @@ int			main(int ac, char **av)
 			return (0);
 		}
 		ft_lnew(&elem, ft_atoi(av[i]));
-		ft_ldbladdfront(&a, elem);
+		ft_ldbladdfront(a, elem);
 		i++;
 	}
+	return (1);
+}
+
+int			main(int ac, char **av)
+{
+	t_dbl		*a;
+	t_dbl		*b;
+	int			i;
+	int			option;
+
+	option = 0;
+	i = 1;
+	if (ac > 2)
+	{
+		if (ft_strcmp(av[1], "-v") == 0)
+		{
+			option = 1;
+			i++;
+		}
+	}
+	else
+		return (0);
+	ft_initdbl(&a);
+	ft_initdbl(&b);
+	if (!ft_putelem(i, ac, av, &a))
+		return (0);
 	if (!ft_same_nbr(a))
 	{
 		ft_printf("Error\n");
 		return (0);//free liste avant erreur
 	}
-	while((!list_rev_ok(a) || !list_ok(b)))// && b->tail->value < a->tail->value)
-	{
-		i = ft_min_pile(a, &pos);
-		if (a->tail->prev && i == a->tail->prev->value)
-		{
-			ft_swap_pile(&a);
-			ft_printf("sa ");
-		}
-		else if (pos > (int)a->length / 2)
-		{
-			while (a->tail->value != i)
-			{
-				ft_rev_rot_pile(&a);
-				ft_printf("rra ");
-			}
-		}
-		else
-		{
-			while (a->tail->value != i)
-			{
-				ft_rot_pile(&a);
-				ft_printf("ra ");
-			}
-		}
-		if ((!list_rev_ok(a) || !list_ok(b)))
-		{
-			ft_push_pile(&a, &b);
-			ft_printf("pb \n");
-		}
-		ft_printf("\nliste a :");
-		ft_affiche_pile(a);
-		ft_printf("\nliste b :");
-		ft_affiche_pile(b);
-		ft_printf("\n");
-	}
-	while (b->length != 0)
-	{
-		ft_push_pile(&b, &a);
-		ft_printf("pa ");
-	}
-	ft_printf("\nliste a :");
-	ft_affiche_pile(a);
-	ft_printf("\nliste b :");
-	ft_affiche_pile(b);
-	ft_printf("\n");
+	push_swap(&a, &b);
+	ft_affiche_color(a, b, 1);
+	ft_affiche(a, b);
 	return (0);
 }

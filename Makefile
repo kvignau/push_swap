@@ -24,9 +24,6 @@ $(NAME): $(OBJ)
 	make -C libft/ all
 	gcc -o $(NAME) $(OBJ) -L libft/ -lft
 
-%.o: %.c
-	gcc $(FLAGS) -c -o $@ $<
-
 clean:
 	make -C libft/ clean
 	rm -f $(OBJ)
