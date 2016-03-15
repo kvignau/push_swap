@@ -67,8 +67,6 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 	while((!list_rev_ok(*a) || !list_ok(*b)))// && b->tail->value < a->tail->value)
 	{
 		i = ft_min_pile(*a, &pos);
-		if (tour != 0)
-			ft_printf(" ");
 		tour++;
 		if ((*a)->tail->prev && i == (*a)->tail->prev->value)
 		{
@@ -81,6 +79,8 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 			{
 				ft_rev_rot_pile(a);
 				ft_printf("rra");
+				if (tour != 0)
+					ft_printf(" ");
 			}
 		}
 		else
@@ -89,24 +89,32 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 			{
 				ft_rot_pile(a);
 				ft_printf("ra");
+				if (tour != 0)
+					ft_printf(" ");
 			}
 		}
 		if ((!list_rev_ok(*a) || !list_ok(*b)))
 		{
 			ft_push_pile(a, b);
 			ft_printf("pb");
+			if (tour != 0)
+				ft_printf(" ");
 		}
 		if (option.b)
 		{
 			if (option.c)
 				ft_affiche_color(*a, *b, 0);
-			ft_affiche(*a, *b);
+			else
+				ft_affiche(*a, *b);
 		}
 	}
 	while ((*b)->length != 0)
 	{
 		ft_push_pile(b, a);
-		ft_printf("pa ");
+		if (tour != 0)
+			ft_printf(" ");
+		ft_printf("pa");
+		tour++;
 	}
 }
 
@@ -142,9 +150,13 @@ int			gestion_option(int *i, t_option *option, int ac, char **av)
 				else if (av[*i][j] == 'b' && option->b == 0)
 					option->b = 1;
 				else
+				{
 					ft_printf("Options valables: \nb -> affichage listes intermediaires\nc -> ajout couleur aux listes");
-				(*i)++;
+					return (0);
+				}
+				j++;
 			}
+			(*i)++;
 		}
 		return (1);
 	}
