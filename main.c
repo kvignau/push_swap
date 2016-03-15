@@ -62,8 +62,10 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 	int		pos;
 	int		i;
 	int		tour;
+	int		nboperation;//pour le test
 
 	tour = 0;
+	nboperation = 0;
 	while((!list_rev_ok(*a) || !list_ok(*b)))// && b->tail->value < a->tail->value)
 	{
 		i = ft_min_pile(*a, &pos);
@@ -72,6 +74,7 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 		{
 			ft_swap_pile(a);
 			ft_printf("sa");
+			nboperation++;
 		}
 		else if (pos > (int)(*a)->length / 2)
 		{
@@ -79,6 +82,7 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 			{
 				ft_rev_rot_pile(a);
 				ft_printf("rra");
+				nboperation++;
 				if (tour != 0)
 					ft_printf(" ");
 			}
@@ -89,6 +93,7 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 			{
 				ft_rot_pile(a);
 				ft_printf("ra");
+				nboperation++;
 				if (tour != 0)
 					ft_printf(" ");
 			}
@@ -97,6 +102,7 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 		{
 			ft_push_pile(a, b);
 			ft_printf("pb");
+			nboperation++;
 			if (tour != 0)
 				ft_printf(" ");
 		}
@@ -114,8 +120,10 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 		if (tour != 0)
 			ft_printf(" ");
 		ft_printf("pa");
+		nboperation++;
 		tour++;
 	}
+	ft_printf("[{red}%d{eoc}]", nboperation);
 }
 
 int		ft_putelem(int i, int ac, char **av, t_dbl **a)
