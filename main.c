@@ -74,6 +74,8 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 		{
 			ft_swap_pile(a);
 			ft_printf("sa");
+			if (tour != 0)
+				ft_printf(" ");
 			nboperation++;
 		}
 		else if (pos > (int)(*a)->length / 2)
@@ -114,6 +116,7 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 				ft_affiche(*a, *b);
 		}
 	}
+	tour = 0;
 	while ((*b)->length != 0)
 	{
 		ft_push_pile(b, a);
