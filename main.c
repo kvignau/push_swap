@@ -106,7 +106,7 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 			if (tour != 0)
 				ft_printf(" ");
 		}
-		if (option.b)
+		if (option.v)
 		{
 			if (option.c)
 				ft_affiche_color(*a, *b, 0);
@@ -123,7 +123,8 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 		nboperation++;
 		tour++;
 	}
-	ft_printf("[{red}%d{eoc}]", nboperation);
+	if (option.n)
+		ft_printf("\n\n[{cyan}nb operation : %d{eoc}]\n", nboperation);
 }
 
 int		ft_putelem(int i, int ac, char **av, t_dbl **a)
@@ -146,20 +147,25 @@ int			gestion_option(int *i, t_option *option, int ac, char **av)
 	int		j;
 
 	j = 0;
-	if (ac > 2)
+	if (ac >= 2)
 	{
 		if (av[*i][j] && av[*i][j] == '-')
 		{
 			j++;
+			if (!ft_isalpha(av[*i][j]))
+				return (1);
 			while (av[*i][j])
 			{	
 				if (av[*i][j] == 'c' && option->c == 0)
 					option->c = 1;
-				else if (av[*i][j] == 'b' && option->b == 0)
-					option->b = 1;
+				else if (av[*i][j] == 'v' && option->v == 0)
+					option->v = 1;
+				else if (av[*i][j] == 'n' && option->n == 0)
+					option->n = 1;
 				else
 				{
-					ft_printf("Options valables: \nb -> affichage listes intermediaires\nc -> ajout couleur aux listes");
+					ft_printf("Options valables: \nv -> affichage listes intermediaires\
+						\nc -> ajout couleur aux listes\nn -> nb opérations");
 					return (0);
 				}
 				j++;
@@ -175,7 +181,8 @@ int			gestion_option(int *i, t_option *option, int ac, char **av)
 void		init_option(t_option *opt)
 {
 	opt->c = 0;
-	opt->b = 0;
+	opt->v = 0;
+	opt->n = 0;
 }
 
 int			main(int ac, char **av)
@@ -202,5 +209,6 @@ int			main(int ac, char **av)
 		ft_affiche(a, b);
 	ft_ldbldel(&a);
 	ft_ldbldel(&b);
+	while (1);
 	return (0);
 }

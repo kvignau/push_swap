@@ -32,7 +32,8 @@ typedef	struct		s_dbl
 typedef	struct		s_option
 {
 	int		c;
-	int		b;
+	int		v;
+	int		n;
 }					t_option;
 
 void			ft_initdbl(t_dbl **lst);
