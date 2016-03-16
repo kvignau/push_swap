@@ -207,6 +207,7 @@ int			main(int ac, char **av)
 		return (0);
 	if (!ft_same_nbr(a))
 		return (ft_print_error(&a));
+	ft_affiche(a, b);
 	push_swap(&a, &b, option);
 	if (option.c)
 		ft_affiche_color(a, b, 1);
