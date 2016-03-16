@@ -62,7 +62,7 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 	int		pos;
 	int		i;
 	int		tour;
-	int		nboperation;//pour le test
+	int		nboperation;
 
 	tour = 0;
 	nboperation = 0;
@@ -139,6 +139,8 @@ int		ft_putelem(int i, int ac, char **av, t_dbl **a)
 		ft_ldbladdfront(a, elem);
 		i++;
 	}
+	if ((*a)->length == 0)
+		return (0);
 	return (1);
 }
 
@@ -208,7 +210,5 @@ int			main(int ac, char **av)
 	else
 		ft_affiche(a, b);
 	ft_ldbldel(&a);
-	ft_ldbldel(&b);
-	while (1);
 	return (0);
 }

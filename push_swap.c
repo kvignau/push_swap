@@ -175,9 +175,8 @@ void		ft_push_pile(t_dbl **a, t_dbl **b)
 		(*a)->tail->next = NULL;
 	else
 	{
-		ft_initdbl(a);
-		(*b)->length++;
-		return ;
+		(*a)->tail = NULL;
+		(*a)->head = NULL;
 	}
 	(*a)->length--;
 	(*b)->length++;

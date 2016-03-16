@@ -23,7 +23,7 @@ void	ft_ldbldel(t_dbl **list)
 		free((*list)->head);
 		(*list)->head = tmp;
 	}
-	free(*list);
 	(*list)->tail = NULL;
 	(*list)->head = NULL;
+	free(*list);
 }
