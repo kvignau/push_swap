@@ -12,101 +12,6 @@
 
 #include "push_swap.h"
 
-void		ft_initdbl(t_dbl **lst)
-{
-	*lst = (t_dbl *)malloc(sizeof(t_dbl));
-	if (*lst == NULL)
-		return ;
-	else
-	{
-		(*lst)->length = 0;
-		(*lst)->tail = NULL;
-		(*lst)->head = NULL;
-	}
-}
-
-void		ft_lnew(t_node **node,int value)
-{
-	*node = (t_node *)malloc(sizeof(t_node));
-	if (*node == NULL)
-		return ;
-	(*node)->value = value;
-	(*node)->prev = NULL;
-	(*node)->next = NULL;
-}
-
-void	ft_ldbladdfront(t_dbl **lst, t_node *new_elem)
-{
-	if ((*lst)->tail == NULL)
-		(*lst)->tail = new_elem;
-	else
-	{
-		(*lst)->head->prev = new_elem;
-		new_elem->prev = NULL;
-		new_elem->next = (*lst)->head;
-	}
-	(*lst)->head = new_elem;
-	(*lst)->length++;
-}
-
-void		ft_affiche_pile_color(t_dbl *lst, int ok)
-{
-	size_t	i;
-	t_node	*tmp;
-
-	i = 0;
-	if (!lst->head)
-		return ;
-	tmp = lst->head;
-	while (tmp->next)
-	{
-		if (ok)
-			ft_printf("{green}%d{eoc} ", tmp->value);
-		else
-			ft_printf("{red}%d{eoc} ", tmp->value);
-		tmp = tmp->next;
-	}
-	if (ok)
-		ft_printf("{green}%d{eoc}\0", tmp->value);
-	else
-		ft_printf("{red}%d{eoc}\0", tmp->value);
-}
-
-void		ft_affiche_pile(t_dbl *lst)
-{
-	size_t	i;
-	t_node	*tmp;
-
-	i = 0;
-	if (!lst->head)
-		return ;
-	tmp = lst->head;
-	while (tmp->next)
-	{
-		ft_printf("%d ", tmp->value);
-		tmp = tmp->next;
-	}
-	ft_printf("%d", tmp->value);
-}
-
-void		ft_affiche_color(t_dbl *a, t_dbl *b, int ok)
-{
-		ft_printf("\nliste a :");
-		ft_affiche_pile_color(a, ok);
-		ft_printf("\nliste b :");
-		ft_affiche_pile_color(b, ok);
-		ft_printf("\n");
-}
-
-void		ft_affiche(t_dbl *a, t_dbl *b)
-{
-		ft_printf("\nliste a :");
-		ft_affiche_pile(a);
-		ft_printf("\nliste b :");
-		ft_affiche_pile(b);
-		ft_printf("\n");
-}
-
 void		ft_rev_rot_pile(t_dbl **lst)
 {
 	t_node	*tmp;
@@ -182,57 +87,75 @@ void		ft_push_pile(t_dbl **a, t_dbl **b)
 	(*b)->length++;
 }
 
-int			ft_min_pile(t_dbl *a, int *pos)
+void		push_swap(t_dbl **a, t_dbl **b, t_option option)
 {
-	t_node	*tmp;
-	int		min;
-	int		cpt;
+	int		pos;
+	int		i;
+	int		tour;
+	int		nboperation;
 
-	tmp = a->head;
-	cpt = 0;
-	min = tmp->value;
-	tmp = tmp->next;
-	while (tmp)
+	tour = 0;
+	nboperation = 0;
+	while ((!list_rev_ok(*a) || !list_ok(*b)))// && b->tail->value < a->tail->value)
 	{
-		if (tmp->value < min)
+		i = ft_min_pile(*a, &pos);
+		tour++;
+		if ((*a)->tail->prev && i == (*a)->tail->prev->value)
 		{
-			min = tmp->value;
-			*pos = cpt;
+			ft_swap_pile(a);
+			ft_printf("sa");
+			if (tour != 0)
+				ft_printf(" ");
+			nboperation++;
 		}
-		cpt++;
-		tmp = tmp->next;
+		else if (pos > (int)(*a)->length / 2)
+		{
+			while ((*a)->tail->value != i)
+			{
+				ft_rev_rot_pile(a);
+				ft_printf("rra");
+				nboperation++;
+				if (tour != 0)
+					ft_printf(" ");
+			}
+		}
+		else
+		{
+			while ((*a)->tail->value != i)
+			{
+				ft_rot_pile(a);
+				ft_printf("ra");
+				nboperation++;
+				if (tour != 0)
+					ft_printf(" ");
+			}
+		}
+		if ((!list_rev_ok(*a) || !list_ok(*b)))
+		{
+			ft_push_pile(a, b);
+			ft_printf("pb");
+			nboperation++;
+			if (tour != 0)
+				ft_printf(" ");
+		}
+		if (option.v)
+		{
+			if (option.c)
+				ft_affiche_color(*a, *b, 0);
+			else
+				ft_affiche(*a, *b);
+		}
 	}
-	return (min);
-}
-
-int			list_ok(t_dbl *lst)
-{
-	t_node	*tmp;
-
-	if (lst->length == 0)
-		return (1);
-	tmp = lst->head;
-	while (tmp->next)
+	tour = 0;
+	while ((*b)->length != 0)
 	{
-		if (tmp->value >= tmp->next->value)
-			return (0);
-		tmp = tmp->next;
+		ft_push_pile(b, a);
+		if (tour != 0)
+			ft_printf(" ");
+		ft_printf("pa");
+		nboperation++;
+		tour++;
 	}
-	return (1);
-}
-
-int			list_rev_ok(t_dbl *lst)
-{
-	t_node	*tmp;
-
-	if (lst->length == 0)
-		return (1);
-	tmp = lst->head;
-	while (tmp->next)
-	{
-		if (tmp->value <= tmp->next->value)
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
+	if (option.n)
+		ft_printf("\n\n[{cyan}nb operation : %d{eoc}]\n", nboperation);
 }
