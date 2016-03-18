@@ -55,7 +55,10 @@ void			ft_rev_rot_pile(t_dbl **lst);
 void			ft_rot_pile(t_dbl **lst);
 void			ft_swap_pile(t_dbl **lst);
 void			ft_push_pile(t_dbl **a, t_dbl **b);
+
 void			push_swap(t_dbl **a, t_dbl **b, t_option option);
+void			action_pile_a(t_dbl **a, int tour, int *nboperation, int i);
+void			action_pile_b(t_dbl **a, t_dbl **b, int *nboperation);
 
 intmax_t		ft_atoi_imax(const char *str);
 

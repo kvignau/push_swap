@@ -74,8 +74,8 @@ int			main(int ac, char **av)
 	if (!ft_same_nbr(a))
 		return (ft_print_error(&a));
 	ft_affiche(a, b);
-	//push_swap(&a, &b, option);//algo opé non opti
-	bigmap(&a, &b, option);//nouvel algo
+	push_swap(&a, &b, option);//algo opé non opti
+	//bigmap(&a, &b, option);//nouvel algo
 	if (option.c)
 		ft_affiche_color(a, b, 1);
 	else
