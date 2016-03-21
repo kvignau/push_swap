@@ -39,3 +39,24 @@ int			median_pile(t_dbl *lst)
 	}
 	return (0);
 }
+
+void		div_pile(t_dbl **a, t_dbl **b)
+{
+	int		med;
+	int		val;
+	t_node	*tmp;
+
+	med = median_pile(*a);
+	val = (*a)->head->value;
+	tmp = (*a)->tail;
+	while (tmp && val != tmp->value)
+	{
+		if (tmp->value <= med)
+			ft_push_pile(a, b);
+		else
+			ft_rev_rot_pile(a);
+		tmp = (*a)->tail;
+	}
+	if (tmp && tmp->value < med)
+			ft_push_pile(a, b);
+}

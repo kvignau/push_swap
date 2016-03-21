@@ -78,5 +78,6 @@ void		bigmap(t_dbl **a, t_dbl **b, t_option opion);
 
 //newalgo
 int			median_pile(t_dbl *lst);
+void		div_pile(t_dbl **a, t_dbl **b);
 
 #endif
