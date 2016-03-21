@@ -51,7 +51,7 @@ void		div_pile(t_dbl **a, t_dbl **b)
 	tmp = (*a)->tail;
 	while (tmp && val != tmp->value)
 	{
-		if (tmp->value <= med)
+		if (tmp->value < med)
 			ft_push_pile(a, b);
 		else
 			ft_rev_rot_pile(a);
