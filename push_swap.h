@@ -13,7 +13,7 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-#include "libft/libft.h"
+# include "libft/libft.h"
 
 typedef	struct		s_node
 {
@@ -75,5 +75,8 @@ int			ft_min(t_dbl *a);
 int			max_pile(t_dbl *a);
 int			val_medium(t_dbl *a);
 void		bigmap(t_dbl **a, t_dbl **b, t_option opion);
+
+//newalgo
+int			median_pile(t_dbl *lst);
 
 #endif
