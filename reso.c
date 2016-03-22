@@ -29,7 +29,7 @@ int			ft_min(t_dbl *a)
 	return (min);
 }
 
-int			ft_max_pile(t_dbl *a)
+int			max_pile(t_dbl *a)
 {
 	t_node	*tmp;
 	int		max;

@@ -35,6 +35,29 @@ int			ft_min_pile(t_dbl *a, int *pos)
 	return (min);
 }
 
+int			ft_max_pile(t_dbl *a, int *pos)
+{
+	t_node	*tmp;
+	int		max;
+	int		cpt;
+
+	tmp = a->head;
+	cpt = 0;
+	max = tmp->value;
+	tmp = tmp->next;
+	while (tmp)
+	{
+		if (tmp->value > max)
+		{
+			max = tmp->value;
+			*pos = cpt;
+		}
+		cpt++;
+		tmp = tmp->next;
+	}
+	return (max);
+}
+
 int			list_ok(t_dbl *lst)
 {
 	t_node	*tmp;

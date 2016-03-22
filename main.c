@@ -62,7 +62,9 @@ int			main(int ac, char **av)
 	t_dbl		*b;
 	int			i;
 	t_option	option;
+	int		nboperation;
 
+	nboperation = 0;
 	init_option(&option);
 	i = 1;
 	if (!gestion_option(&i, &option, ac, av))
@@ -77,7 +79,13 @@ int			main(int ac, char **av)
 	//push_swap(&a, &b, option);//algo opé non opti
 	//bigmap(&a, &b, option);//nouvel algo
 	//ft_printf("\nla valeur mediane : %d \n", median_pile(a));
-	div_pile(&a, &b);
+	// push_swap(&a, &b, option);//algo opé non opti
+
+	div_pile(&a, &b, &nboperation);
+	push_swap(&a, &b, option, &nboperation);
+	push_swap2(&a, &b, option, &nboperation);
+	if (option.n)
+		ft_printf("\n\n[{cyan}nb operation : %d{eoc}]\n", nboperation);
 	if (option.c)
 		ft_affiche_color(a, b, 1);
 	else
