@@ -6,14 +6,14 @@
 /*   By: kvignau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 14:14:30 by kvignau           #+#    #+#             */
-/*   Updated: 2016/03/15 10:10:07 by kvignau          ###   ########.fr       */
+/*   Updated: 2016/03/23 20:01:31 by kvignau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "libft/libft.h"
+# include "ft_printf/ft_printf.h"
 
 // typedef	struct		s_action // UTILISATION DUNE LISTE POUR LES ACTION 
 // {
