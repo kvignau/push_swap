@@ -78,12 +78,14 @@ int			main(int ac, char **av)
 	ft_affiche(a, b);
 	if (!verif_tri(a, &i))
 	{
-		if (a->length >= 2 && i == a->length - 1 && ft_min(a))
+		if ((a->length >= 2 && i == a->length - 1 && ft_min(a)))
 		{
 			ft_swap_pile(&a);
 			ft_printf("sa ");
 			nboperation++;
 		}
+		else if (a->length == 3)
+			smallmap(&a, &nboperation);
 		else
 		{
 			div_pile(&a, &b, &nboperation);

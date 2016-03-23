@@ -88,7 +88,7 @@ int				ft_same_nbr(t_dbl *lst);
 int			ft_min(t_dbl *a);
 int			max_pile(t_dbl *a);
 int			val_medium(t_dbl *a);
-void		bigmap(t_dbl **a, int *nboperation);
+void		smallmap(t_dbl **a, int *nboperation);
 
 //newalgo
 void			push_swap(t_dbl **a, t_dbl **b, t_option option, int *nboperation);

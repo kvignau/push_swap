@@ -46,7 +46,7 @@ int			ft_min(t_dbl *a)
 	return (1);
 }
 
-void		bigmap(t_dbl **a, int *nboperation)
+void		smallmap(t_dbl **a, int *nboperation)
 {
 	while (!(list_rev_ok(*a)))
 	{
@@ -56,13 +56,13 @@ void		bigmap(t_dbl **a, int *nboperation)
 			ft_printf("ra ");
 			(*nboperation)++;
 		}
-		if ((*a)->tail->prev && (*a)->tail->prev->value < (*a)->tail->value)
+		else if ((*a)->tail->prev && (*a)->tail->prev->value < (*a)->tail->value)
 		{
 			ft_swap_pile(a);
 			ft_printf("sa ");
 			(*nboperation)++;
 		}
-		else// ((*a)->head->value < (*a)->tail->value)
+		else
 		{
 			ft_rev_rot_pile(a);
 			ft_printf("rra ");
