@@ -12,23 +12,6 @@
 
 #include "push_swap.h"
 
-int			ft_min(t_dbl *a)
-{
-	t_node	*tmp;
-	int		min;
-
-	tmp = a->head;
-	min = tmp->value;
-	tmp = tmp->next;
-	while (tmp)
-	{
-		if (tmp->value < min)
-			min = tmp->value;
-		tmp = tmp->next;
-	}
-	return (min);
-}
-
 int			max_pile(t_dbl *a)
 {
 	t_node	*tmp;
@@ -46,23 +29,14 @@ int			max_pile(t_dbl *a)
 	return (max);
 }
 
-int			val_medium(t_dbl *a)
-{
-	int		med;
-
-	med = (ft_min(a) + ft_max_pile(a)) / 2;
-	ft_printf("%d", med);
-	return (med);
-}
-
 void		bigmap(t_dbl **a, t_dbl **b, t_option option)
 {
 	while (!(list_rev_ok(*a)))
 	{
-		if ((*a)->tail->value == ft_max_pile(*a))
+		if ((*a)->tail->value == max_pile(*a))
 		{
-			ft_rev_rot_pile(a);
-			ft_printf("rra ");
+			ft_rot_pile(a);
+			ft_printf("ra ");
 		}
 		if ((*a)->tail->prev && (*a)->tail->prev->value < (*a)->tail->value)
 		{
@@ -71,8 +45,8 @@ void		bigmap(t_dbl **a, t_dbl **b, t_option option)
 		}
 		else// ((*a)->head->value < (*a)->tail->value)
 		{
-			ft_rot_pile(a);
-			ft_printf("ra ");
+			ft_rev_rot_pile(a);
+			ft_printf("rra ");
 		}
 	}
 	option.v = 1;

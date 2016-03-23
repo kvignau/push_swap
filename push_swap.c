@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-void		ft_rev_rot_pile(t_dbl **lst)
+void		ft_rot_pile(t_dbl **lst)
 {
 	t_node	*tmp;
 
@@ -27,7 +27,7 @@ void		ft_rev_rot_pile(t_dbl **lst)
 	(*lst)->tail->next = NULL;
 }
 
-void		ft_rot_pile(t_dbl **lst)
+void		ft_rev_rot_pile(t_dbl **lst)
 {
 	t_node	*tmp;
 
@@ -89,88 +89,84 @@ void		ft_push_pile(t_dbl **a, t_dbl **b)
 
 //algo OK modifier dans new_algo
 
-// void		action_pile_a(t_dbl **a, int tour, int *nboperation, int i)
-// {
-// 	int		pos;
+void		action_pile(t_dbl **a, int tour, int *nboperation, int i)
+{
+	int		pos;
 
-// 	i = ft_min_pile(*a, &pos);
-// 	if ((*a)->tail->prev && i == (*a)->tail->prev->value)
-// 	{
-// 		ft_swap_pile(a);
-// 		ft_printf("sa");
-// 		if (tour != 0)
-// 			ft_printf(" ");
-// 		(*nboperation)++;
-// 	}
-// 	else if (pos > (int)(*a)->length / 2)
-// 	{
-// 		while ((*a)->tail->value != i)
-// 		{
-// 			ft_rev_rot_pile(a);
-// 			ft_printf("rra");
-// 			(*nboperation)++;
-// 			if (tour != 0)
-// 				ft_printf(" ");
-// 		}
-// 	}
-// 	else
-// 	{
-// 		while ((*a)->tail->value != i)
-// 		{
-// 			ft_rot_pile(a);
-// 			ft_printf("ra");
-// 			(*nboperation)++;
-// 			if (tour != 0)
-// 				ft_printf(" ");
-// 		}
-// 	}
-// }
+	i = ft_min_pile(*a, &pos);
+	if ((*a)->tail->prev && i == (*a)->tail->prev->value)
+	{
+		ft_swap_pile(a);
+		ft_printf("sa");
+		if (tour != 0)
+			ft_printf(" ");
+		(*nboperation)++;
+	}
+	else if (pos > (int)(*a)->length / 2)
+	{
+		while ((*a)->tail->value != i)
+		{
+			ft_rot_pile(a);
+			ft_printf("ra");
+			(*nboperation)++;
+			if (tour != 0)
+				ft_printf(" ");
+		}
+	}
+	else
+	{
+		while ((*a)->tail->value != i)
+		{
+			ft_rev_rot_pile(a);
+			ft_printf("rra");
+			(*nboperation)++;
+			if (tour != 0)
+				ft_printf(" ");
+		}
+	}
+}
 
-// void		action_pile_b(t_dbl **a, t_dbl **b, int *nboperation)
-// {
-// 	int		tour;
+void		push_pile_a(t_dbl **a, t_dbl **b, int *nboperation)
+{
+	int		tour;
 
-// 	tour = 0;
-// 	while ((*b)->length != 0)
-// 	{
-// 		ft_push_pile(b, a);
-// 		if (tour != 0)
-// 			ft_printf(" ");
-// 		ft_printf("pa");
-// 		(*nboperation)++;
-// 		tour++;
-// 	}
-// }
+	tour = 0;
+	while ((*b)->length != 0)
+	{
+		ft_push_pile(b, a);
+		if (tour != 0)
+			ft_printf(" ");
+		ft_printf("pa");
+		(*nboperation)++;
+		tour++;
+	}
+}
 
-// void		push_swap(t_dbl **a, t_dbl **b, t_option option)
-// {
-// 	int		i;
-// 	int		tour;
-// 	int		nboperation;
+void		mediummap_swap(t_dbl **a, t_dbl **b, t_option option, int *nboperation)
+{
+	int		i;
+	int		tour;
 
-// 	tour = 0;
-// 	nboperation = 0;
-// 	while ((!list_rev_ok(*a) || !list_ok(*b)))// && b->tail->value < a->tail->value)
-// 	{
-// 		tour++;
-// 		action_pile_a(a, tour, &nboperation, i);
-// 		if ((!list_rev_ok(*a) || !list_ok(*b)))
-// 		{
-// 			ft_push_pile(a, b);
-// 			ft_printf("pb");
-// 			nboperation++;
-// 			if (tour != 0)
-// 				ft_printf(" ");
-// 		}
-// 		if (option.v)
-// 		{
-// 			if (option.c)
-// 				ft_affiche_color(*a, *b, 0);
-// 			else
-// 				ft_affiche(*a, *b);
-// 		}
-// 	}
-// 	action_pile_b(a, b, &nboperation);
-// 	if (option.n)
-// 		ft_printf("\n\n[{cyan}nb operation : %d{eoc}]\n", nboperation);
-// }
+	tour = 0;
+	while ((!list_rev_ok(*a) || !list_ok(*b)))// && b->tail->value < a->tail->value)
+	{
+		tour++;
+		action_pile(a, tour, nboperation, i);
+		if ((!list_rev_ok(*a) || !list_ok(*b)))
+		{
+			ft_push_pile(a, b);
+			ft_printf("pb");
+			(*nboperation)++;
+			if (tour != 0)
+				ft_printf(" ");
+		}
+		if (option.v)
+		{
+			if (option.c)
+				ft_affiche_color(*a, *b, 0);
+			else
+				ft_affiche(*a, *b);
+		}
+	}
+	push_pile_a(a, b, nboperation);
+}

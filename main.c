@@ -80,10 +80,15 @@ int			main(int ac, char **av)
 	//bigmap(&a, &b, option);//nouvel algo
 	//ft_printf("\nla valeur mediane : %d \n", median_pile(a));
 	// push_swap(&a, &b, option);//algo opé non opti
-
-	div_pile(&a, &b, &nboperation);
-	push_swap(&a, &b, option, &nboperation);
-	push_swap2(&a, &b, option, &nboperation);
+	//mediummap_swap(&a, &b, option, &nboperation);
+	//ft_rev_rot_pile(&a);
+	//ft_affiche(a, b);
+	if (!list_rev_ok(a))
+	{
+		div_pile(&a, &b, &nboperation);
+		push_swap(&a, &b, option, &nboperation);
+		push_swap2(&a, &b, option, &nboperation);
+	}
 	if (option.n)
 		ft_printf("\n\n[{cyan}nb operation : %d{eoc}]\n", nboperation);
 	if (option.c)

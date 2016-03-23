@@ -56,11 +56,9 @@ void			ft_rot_pile(t_dbl **lst);
 void			ft_swap_pile(t_dbl **lst);
 void			ft_push_pile(t_dbl **a, t_dbl **b);
 
-void			push_swap(t_dbl **a, t_dbl **b, t_option option, int *nboperation);
-// void			push_swap(t_dbl **a, t_dbl **b, t_option option);
-void			action_pile_a(t_dbl **a, int tour, int *nboperation, int i);
-void			action_pile_b(t_dbl **a, t_dbl **b, int *nboperation, int nb_push);
-// void			action_pile_b(t_dbl **a, t_dbl **b, int *nboperation);
+void			mediummap_swap(t_dbl **a, t_dbl **b, t_option option, int *nboperation);
+void			push_pile_a(t_dbl **a, t_dbl **b, int *nboperation);
+void			action_pile(t_dbl **a, int tour, int *nboperation, int i);
 
 intmax_t		ft_atoi_imax(const char *str);
 
@@ -80,10 +78,12 @@ int			val_medium(t_dbl *a);
 void		bigmap(t_dbl **a, t_dbl **b, t_option opion);
 
 //newalgo
-int			median_pile(t_dbl *lst);
-void		div_pile(t_dbl **a, t_dbl **b, int *nboperation);
-// void		fusion(t_dbl **a, t_dbl **b, int *nboperation);
-void		action_fusion(t_dbl **a, int tour, int *nboperation, int i);
-void		push_swap2(t_dbl **a, t_dbl **b, t_option option, int *nboperation);
+void			push_swap(t_dbl **a, t_dbl **b, t_option option, int *nboperation);
+void			action_pile_a(t_dbl **a, int tour, int *nboperation, int i);
+void			action_pile_b(t_dbl **a, t_dbl **b, int *nboperation, int nb_push);
+int				median_pile(t_dbl *lst);
+void			div_pile(t_dbl **a, t_dbl **b, int *nboperation);
+void			push_swap2(t_dbl **a, t_dbl **b, t_option option, int *nboperation);
+void			action_fusion(t_dbl **a, int tour, int *nboperation, int i);
 
 #endif

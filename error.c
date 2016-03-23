@@ -14,7 +14,8 @@
 
 int				ft_print_error(t_dbl **a)
 {
-	ft_printf("Error\n");
+	//ft_printf("Error\n");
+	write(2, "Error\n", 6);
 	ft_ldbldel(a);
 	return (0);
 }

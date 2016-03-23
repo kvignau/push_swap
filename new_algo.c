@@ -45,27 +45,38 @@ void		div_pile(t_dbl **a, t_dbl **b, int *nboperation)
 	int		med;
 	int		val;
 	t_node	*tmp;
+	int		tour;
 
+	tour = 0;
 	med = median_pile(*a);
 	val = (*a)->head->value;
 	tmp = (*a)->tail;
-	while (tmp && val != tmp->value)
+	while ((tmp && val != tmp->value) && !list_rev_ok(*a))
 	{
 		if (tmp->value < med)
 		{
 			ft_push_pile(a, b);
-			(*nboperation)++;
+			ft_printf("pb");
+			if (tour != 0)
+				ft_printf(" ");
 		}
 		else
 		{
-			ft_rev_rot_pile(a);
-			(*nboperation)++;
+			ft_rot_pile(a);
+			ft_printf("ra");
+			if (tour != 0)
+				ft_printf(" ");
 		}
+		(*nboperation)++;
 		tmp = (*a)->tail;
+		tour++;
 	}
 	if (tmp && tmp->value < med)
 	{
 			ft_push_pile(a, b);
+			ft_printf("pb");
+			if (tour != 0)
+				ft_printf(" ");
 			(*nboperation)++;
 	}
 }
@@ -74,6 +85,7 @@ void		action_pile_a(t_dbl **a, int tour, int *nboperation, int i)
 {
 	int		pos;
 
+	pos = 0;
 	i = ft_min_pile(*a, &pos);
 	if ((*a)->tail->prev && i == (*a)->tail->prev->value)
 	{
@@ -87,8 +99,8 @@ void		action_pile_a(t_dbl **a, int tour, int *nboperation, int i)
 	{
 		while ((*a)->tail->value != i)
 		{
-			ft_rev_rot_pile(a);
-			ft_printf("rra");
+			ft_rot_pile(a);
+			ft_printf("ra");
 			(*nboperation)++;
 			if (tour != 0)
 				ft_printf(" ");
@@ -98,8 +110,8 @@ void		action_pile_a(t_dbl **a, int tour, int *nboperation, int i)
 	{
 		while ((*a)->tail->value != i)
 		{
-			ft_rot_pile(a);
-			ft_printf("ra");
+			ft_rev_rot_pile(a);
+			ft_printf("rra");
 			(*nboperation)++;
 			if (tour != 0)
 				ft_printf(" ");
@@ -216,8 +228,8 @@ void		action_fusion(t_dbl **b, int tour, int *nboperation, int i)
 	{
 		while ((*b)->tail->value != i)
 		{
-			ft_rev_rot_pile(b);
-			ft_printf("rrb");
+			ft_rot_pile(b);
+			ft_printf("rb");
 			(*nboperation)++;
 			if (tour != 0)
 				ft_printf(" ");
@@ -227,8 +239,8 @@ void		action_fusion(t_dbl **b, int tour, int *nboperation, int i)
 	{
 		while ((*b)->tail->value != i)
 		{
-			ft_rot_pile(b);
-			ft_printf("rb");
+			ft_rev_rot_pile(b);
+			ft_printf("rrb");
 			(*nboperation)++;
 			if (tour != 0)
 				ft_printf(" ");

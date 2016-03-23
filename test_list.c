@@ -19,17 +19,18 @@ int			ft_min_pile(t_dbl *a, int *pos)
 	int		cpt;
 
 	tmp = a->head;
-	cpt = 0;
+	cpt = 1;
 	min = tmp->value;
+	(*pos) = 1;
 	tmp = tmp->next;
 	while (tmp)
 	{
+		cpt++;
 		if (tmp->value < min)
 		{
 			min = tmp->value;
-			*pos = cpt;
+			(*pos) = cpt;
 		}
-		cpt++;
 		tmp = tmp->next;
 	}
 	return (min);
