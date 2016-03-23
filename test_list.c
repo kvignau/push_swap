@@ -90,3 +90,24 @@ int			list_rev_ok(t_dbl *lst)
 	}
 	return (1);
 }
+
+int			verif_tri(t_dbl *lst, int *pos)
+{
+	t_node	*tmp;
+
+	*pos = 0;
+	if (lst->length == 0)
+		return (1);
+	tmp = lst->head;
+	while (tmp->next)
+	{
+		if (tmp->value <= tmp->next->value)
+		{
+			(*pos)++;
+			return (0);
+		}
+		(*pos)++;
+		tmp = tmp->next;
+	}
+	return (1);
+}

@@ -51,8 +51,10 @@ void		div_pile(t_dbl **a, t_dbl **b, int *nboperation)
 	med = median_pile(*a);
 	val = (*a)->head->value;
 	tmp = (*a)->tail;
-	while ((tmp && val != tmp->value) && !list_rev_ok(*a))
+	while (tmp && val != tmp->value)
 	{
+		if (list_rev_ok(*a) && (*b)->tail && (*a)->tail->value > max_pile(*b))
+			break ;
 		if (tmp->value < med)
 		{
 			ft_push_pile(a, b);
@@ -71,7 +73,7 @@ void		div_pile(t_dbl **a, t_dbl **b, int *nboperation)
 		tmp = (*a)->tail;
 		tour++;
 	}
-	if (tmp && tmp->value < med)
+	if (tmp && tmp->value < med && (!list_rev_ok(*a)))
 	{
 			ft_push_pile(a, b);
 			ft_printf("pb");

@@ -29,7 +29,24 @@ int			max_pile(t_dbl *a)
 	return (max);
 }
 
-void		bigmap(t_dbl **a, t_dbl **b, t_option option)
+int			ft_min(t_dbl *a)
+{
+	t_node	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = a->head;
+	while (i < a->length - 2)
+	{
+		if (tmp->value < a->tail->value)
+			return (0);
+		tmp = tmp->next;
+		i++;
+	}
+	return (1);
+}
+
+void		bigmap(t_dbl **a, int *nboperation)
 {
 	while (!(list_rev_ok(*a)))
 	{
@@ -37,18 +54,19 @@ void		bigmap(t_dbl **a, t_dbl **b, t_option option)
 		{
 			ft_rot_pile(a);
 			ft_printf("ra ");
+			(*nboperation)++;
 		}
 		if ((*a)->tail->prev && (*a)->tail->prev->value < (*a)->tail->value)
 		{
 			ft_swap_pile(a);
 			ft_printf("sa ");
+			(*nboperation)++;
 		}
 		else// ((*a)->head->value < (*a)->tail->value)
 		{
 			ft_rev_rot_pile(a);
 			ft_printf("rra ");
+			(*nboperation)++;
 		}
 	}
-	option.v = 1;
-	(*b)->head = NULL;
 }

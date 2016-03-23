@@ -88,7 +88,7 @@ int				ft_same_nbr(t_dbl *lst);
 int			ft_min(t_dbl *a);
 int			max_pile(t_dbl *a);
 int			val_medium(t_dbl *a);
-void		bigmap(t_dbl **a, t_dbl **b, t_option opion);
+void		bigmap(t_dbl **a, int *nboperation);
 
 //newalgo
 void			push_swap(t_dbl **a, t_dbl **b, t_option option, int *nboperation);
@@ -98,5 +98,6 @@ int				median_pile(t_dbl *lst);
 void			div_pile(t_dbl **a, t_dbl **b, int *nboperation);
 void			push_swap2(t_dbl **a, t_dbl **b, t_option option, int *nboperation);
 void			action_fusion(t_dbl **a, int tour, int *nboperation, int i);
+int				verif_tri(t_dbl *lst, int *pos);
 
 #endif
