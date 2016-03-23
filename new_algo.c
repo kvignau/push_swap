@@ -87,7 +87,7 @@ void		action_pile_a(t_dbl **a, int tour, int *nboperation, int i)
 
 	pos = 0;
 	i = ft_min_pile(*a, &pos);
-	if ((*a)->tail->prev && i == (*a)->tail->prev->value)
+ 	if ((*a)->tail->prev && i == (*a)->tail->prev->value)
 	{
 		ft_swap_pile(a);
 		ft_printf("sa");

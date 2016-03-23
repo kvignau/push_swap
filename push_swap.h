@@ -15,6 +15,19 @@
 
 # include "libft/libft.h"
 
+// typedef	struct		s_action // UTILISATION DUNE LISTE POUR LES ACTION 
+// {
+// 	char			*content;
+// 	struct s_node	*next;
+// }					t_action;
+
+// typedef	struct		s_lstact
+// {
+// 	size_t			length;
+// 	t_node			*tail;
+// 	t_node			*head;
+// }					t_lstact;
+
 typedef	struct		s_node
 {
 	int				value;

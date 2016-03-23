@@ -62,7 +62,7 @@ int			main(int ac, char **av)
 	t_dbl		*b;
 	int			i;
 	t_option	option;
-	int		nboperation;
+	int			nboperation;
 
 	nboperation = 0;
 	init_option(&option);
