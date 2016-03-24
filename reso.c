@@ -46,27 +46,24 @@ int			ft_min(t_dbl *a)
 	return (1);
 }
 
-void		smallmap(t_dbl **a, int *nboperation)
+void		smallmap(t_dbl **a, t_dbllist **lstactions)
 {
 	while (!(list_rev_ok(*a)))
 	{
 		if ((*a)->tail->value == max_pile(*a))
 		{
 			ft_rot_pile(a);
-			ft_printf("ra ");
-			(*nboperation)++;
+			ft_lstdbladd(lstactions, "ra", 2);
 		}
 		else if ((*a)->tail->prev && (*a)->tail->prev->value < (*a)->tail->value)
 		{
 			ft_swap_pile(a);
-			ft_printf("sa ");
-			(*nboperation)++;
+			ft_lstdbladd(lstactions, "sa", 2);
 		}
 		else
 		{
 			ft_rev_rot_pile(a);
-			ft_printf("rra ");
-			(*nboperation)++;
+			ft_lstdbladd(lstactions, "rra", 3);
 		}
 	}
 }

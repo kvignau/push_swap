@@ -62,9 +62,8 @@ int			main(int ac, char **av)
 	t_dbl		*b;
 	int			i;
 	t_option	option;
-	int			nboperation;
+	t_dbllist	*lstactions;
 
-	nboperation = 0;
 	init_option(&option);
 	i = 1;
 	if (!gestion_option(&i, &option, ac, av))
@@ -76,29 +75,31 @@ int			main(int ac, char **av)
 	if (!ft_same_nbr(a))
 		return (ft_print_error(&a));
 	ft_affiche(a, b);
+	lstactions = ft_lstdblnew();
 	if (!verif_tri(a, &i))
 	{
 		if ((a->length >= 2 && i == a->length - 1 && ft_min(a)))
 		{
 			ft_swap_pile(&a);
-			ft_printf("sa ");
-			nboperation++;
+			ft_lstdbladd(&lstactions, "sa", 2);
 		}
 		else if (a->length == 3)
-			smallmap(&a, &nboperation);
+			smallmap(&a, &lstactions);
 		else
 		{
-			div_pile(&a, &b, &nboperation);
-			push_swap(&a, &b, option, &nboperation);
-			push_swap2(&a, &b, option, &nboperation);
+			div_pile(&a, &b, &lstactions);
+			push_swap(&a, &b, option, &lstactions);
+			push_swap2(&a, &b, option, &lstactions);
 		}
 	}
+	ft_affiche_action(lstactions);
 	if (option.n)
-		ft_printf("\n\n[{cyan}nb operation : %d{eoc}]\n", nboperation);
+		ft_printf("[{cyan}nb operation : %d{eoc}]\n\n", lstactions->length);
 	if (option.c)
 		ft_affiche_color(a, b, 1);
 	else
 		ft_affiche(a, b);
 	ft_ldbldel(&a);
+	ft_lstdbldel(&lstactions);
 	return (0);
 }

@@ -54,7 +54,7 @@ void		ft_affiche_pile(t_dbl *lst)
 
 void		ft_affiche_color(t_dbl *a, t_dbl *b, int ok)
 {
-	ft_printf("\nliste a :");
+	ft_printf("liste a :");
 	ft_affiche_pile_color(a, ok);
 	ft_printf("\nliste b :");
 	ft_affiche_pile_color(b, ok);
@@ -63,9 +63,28 @@ void		ft_affiche_color(t_dbl *a, t_dbl *b, int ok)
 
 void		ft_affiche(t_dbl *a, t_dbl *b)
 {
-	ft_printf("\nliste a :");
+	ft_printf("liste a :");
 	ft_affiche_pile(a);
 	ft_printf("\nliste b :");
 	ft_affiche_pile(b);
 	ft_printf("\n");
+}
+
+void		ft_affiche_action(t_dbllist *lstactions)
+{
+	t_elem	*tmp;
+
+	tmp = lstactions->head;
+	if (!tmp)
+		return ;
+	ft_putstr("\n");
+	while (tmp->next)
+	{
+		ft_printf("%s ", tmp->content);
+		tmp = tmp->next;
+	}
+	if (tmp)
+		ft_printf("%s", tmp->content);
+	ft_putstr("\n");
+	ft_putstr("\n");
 }

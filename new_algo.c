@@ -40,14 +40,12 @@ int			median_pile(t_dbl *lst)
 	return (0);
 }
 
-void		div_pile(t_dbl **a, t_dbl **b, int *nboperation)
+void		div_pile(t_dbl **a, t_dbl **b, t_dbllist **lstactions)
 {
 	int		med;
 	int		val;
 	t_node	*tmp;
-	int		tour;
 
-	tour = 0;
 	med = median_pile(*a);
 	val = (*a)->head->value;
 	tmp = (*a)->tail;
@@ -58,32 +56,23 @@ void		div_pile(t_dbl **a, t_dbl **b, int *nboperation)
 		if (tmp->value < med)
 		{
 			ft_push_pile(a, b);
-			ft_printf("pb");
-			if (tour != 0)
-				ft_printf(" ");
+			ft_lstdbladd(lstactions, "pb", 2);
 		}
 		else
 		{
 			ft_rot_pile(a);
-			ft_printf("ra");
-			if (tour != 0)
-				ft_printf(" ");
+			ft_lstdbladd(lstactions, "ra", 2);
 		}
-		(*nboperation)++;
 		tmp = (*a)->tail;
-		tour++;
 	}
 	if (tmp && tmp->value < med && (!list_rev_ok(*a)))
 	{
 			ft_push_pile(a, b);
-			ft_printf("pb");
-			if (tour != 0)
-				ft_printf(" ");
-			(*nboperation)++;
+			ft_lstdbladd(lstactions, "pb", 2);
 	}
 }
 
-void		action_pile_a(t_dbl **a, int tour, int *nboperation, int i)
+void		action_pile_a(t_dbl **a, int i, t_dbllist **lstactions)
 {
 	int		pos;
 
@@ -92,20 +81,14 @@ void		action_pile_a(t_dbl **a, int tour, int *nboperation, int i)
  	if ((*a)->tail->prev && i == (*a)->tail->prev->value)
 	{
 		ft_swap_pile(a);
-		ft_printf("sa");
-		if (tour != 0)
-			ft_printf(" ");
-		(*nboperation)++;
+		ft_lstdbladd(lstactions, "sa", 2);
 	}
 	else if (pos > (int)(*a)->length / 2)
 	{
 		while ((*a)->tail->value != i)
 		{
 			ft_rot_pile(a);
-			ft_printf("ra");
-			(*nboperation)++;
-			if (tour != 0)
-				ft_printf(" ");
+			ft_lstdbladd(lstactions, "ra", 2);
 		}
 	}
 	else
@@ -113,27 +96,17 @@ void		action_pile_a(t_dbl **a, int tour, int *nboperation, int i)
 		while ((*a)->tail->value != i)
 		{
 			ft_rev_rot_pile(a);
-			ft_printf("rra");
-			(*nboperation)++;
-			if (tour != 0)
-				ft_printf(" ");
+			ft_lstdbladd(lstactions, "rra", 3);
 		}
 	}
 }
 
-void		action_pile_b(t_dbl **a, t_dbl **b, int *nboperation, int nb_push)
+void		action_pile_b(t_dbl **a, t_dbl **b, int nb_push, t_dbllist **lstactions)
 {
-	int		tour;
-
-	tour = 0;
 	while (nb_push != 0)
 	{
 		ft_push_pile(b, a);
-		if (tour != 0)
-			ft_printf(" ");
-		ft_printf("pa");
-		(*nboperation)++;
-		tour++;
+		ft_lstdbladd(lstactions, "pa", 2);
 		nb_push--;
 	}
 }
@@ -154,26 +127,20 @@ void		action_pile_b(t_dbl **a, t_dbl **b, int *nboperation, int nb_push)
 // 	}
 // }
 
-void		push_swap(t_dbl **a, t_dbl **b, t_option option, int *nboperation)
+void		push_swap(t_dbl **a, t_dbl **b, t_option option, t_dbllist **lstactions)
 {
 	int		i;
-	int		tour;
 	int		nb_push;
 
-	tour = 0;
 	nb_push = 0;
 	while (!list_rev_ok(*a))// && b->tail->value < a->tail->value)
 	{
-		tour++;
-		action_pile_a(a, tour, nboperation, i);
+		action_pile_a(a, i, lstactions);
 		if (!list_rev_ok(*a))
 		{
 			ft_push_pile(a, b);
-			ft_printf("pb");
-			(*nboperation)++;	
+			ft_lstdbladd(lstactions, "pb", 2);
 			nb_push++;
-			if (tour != 0)
-				ft_printf(" ");
 		}
 		if (option.v)
 		{
@@ -183,26 +150,18 @@ void		push_swap(t_dbl **a, t_dbl **b, t_option option, int *nboperation)
 				ft_affiche(*a, *b);
 		}
 	}
-	action_pile_b(a, b, nboperation, nb_push);
+	action_pile_b(a, b, nb_push, lstactions);
 }
 
-void		push_swap2(t_dbl **a, t_dbl **b, t_option option, int *nboperation)
+void		push_swap2(t_dbl **a, t_dbl **b, t_option option, t_dbllist **lstactions)
 {
 	int		i;
-	int		tour;
-	int		nb_push;
 
-	tour = 0;
-	nb_push = 0;
 	while ((*b)->length != 0)// && b->tail->value < a->tail->value)
 	{
-		tour++;
-		action_fusion(b, tour, nboperation, i);
+		action_fusion(b, i, lstactions);
 		ft_push_pile(b, a);
-		ft_printf("pa");
-		(*nboperation)++;
-			if (tour != 0)
-				ft_printf(" ");
+		ft_lstdbladd(lstactions, "pa", 2);
 		if (option.v)
 		{
 			if (option.c)
@@ -213,7 +172,7 @@ void		push_swap2(t_dbl **a, t_dbl **b, t_option option, int *nboperation)
 	}
 }
 
-void		action_fusion(t_dbl **b, int tour, int *nboperation, int i)
+void		action_fusion(t_dbl **b, int i, t_dbllist **lstactions)
 {
 	int		pos;
 
@@ -221,20 +180,14 @@ void		action_fusion(t_dbl **b, int tour, int *nboperation, int i)
 	if ((*b)->tail->prev && i == (*b)->tail->prev->value)
 	{
 		ft_swap_pile(b);
-		ft_printf("sb");
-		if (tour != 0)
-			ft_printf(" ");
-		(*nboperation)++;
+		ft_lstdbladd(lstactions, "sb", 2);
 	}
 	else if (pos > (int)(*b)->length / 2)
 	{
 		while ((*b)->tail->value != i)
 		{
 			ft_rot_pile(b);
-			ft_printf("rb");
-			(*nboperation)++;
-			if (tour != 0)
-				ft_printf(" ");
+			ft_lstdbladd(lstactions, "rb", 2);
 		}
 	}
 	else
@@ -242,10 +195,7 @@ void		action_fusion(t_dbl **b, int tour, int *nboperation, int i)
 		while ((*b)->tail->value != i)
 		{
 			ft_rev_rot_pile(b);
-			ft_printf("rrb");
-			(*nboperation)++;
-			if (tour != 0)
-				ft_printf(" ");
+			ft_lstdbladd(lstactions, "rrb", 3);
 		}
 	}
 }
