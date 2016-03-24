@@ -99,6 +99,9 @@ void			div_pile(t_dbl **a, t_dbl **b, t_dbllist **lstactions);
 void			push_swap2(t_dbl **a, t_dbl **b, t_option option, t_dbllist **lstactions);
 void			action_fusion(t_dbl **a, int i, t_dbllist **lstactions);
 int				verif_tri(t_dbl *lst, int *pos);
+int			inf_med(t_dbl *a, int med);
+int			nb_in_first_part(t_dbl *a, int med);
+int			nb_in_sec_part(t_dbl *a, int med);
 
 //liste action
 void			ft_affiche_action(t_dbllist *lstactions);

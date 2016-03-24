@@ -40,16 +40,72 @@ int			median_pile(t_dbl *lst)
 	return (0);
 }
 
+int			inf_med(t_dbl *a, int med)
+{
+	t_node	*tmp;
+
+	tmp = a->head;
+	while (tmp)
+	{
+		if (tmp->value < med)
+			return (0);
+		tmp = tmp->next;
+	}
+	return (1);
+}
+
+int			nb_in_firt_part(t_dbl *a, int med)
+{
+	t_node	*tmp;
+	int		i;
+	int		cpt;
+
+	i = 0;
+	cpt = 0;
+	tmp = a->head;
+	while (i <= a->length / 2)
+	{
+		if (tmp->value < med)
+			cpt++;
+		tmp = tmp->next;
+		i++;
+	}
+	return (cpt);
+}
+
+int			nb_in_sec_part(t_dbl *a, int med)
+{
+	t_node	*tmp;
+	int		i;
+	int		cpt;
+
+	i = 0;
+	cpt = 0;
+	tmp = a->head;
+	while (i >  a->length / 2)
+	{
+		if (tmp->value < med)
+			cpt++;
+		tmp = tmp->next;
+		i++;
+	}
+	return (cpt);
+}
+
 void		div_pile(t_dbl **a, t_dbl **b, t_dbllist **lstactions)
 {
 	int		med;
 	int		val;
 	t_node	*tmp;
+	int		sens_parc;
 
+	sens_parc = 0;
+	// if (nb_in_firt_part(*a, med) > nb_in_sec_part(*a, med))
+	// 	sens_parc++;
 	med = median_pile(*a);
 	val = (*a)->head->value;
 	tmp = (*a)->tail;
-	while (tmp && val != tmp->value)
+	while (tmp && val != tmp->value)//inf_med(*a, med))
 	{
 		if (list_rev_ok(*a) && (*b)->tail && (*a)->tail->value > max_pile(*b))
 			break ;
@@ -58,6 +114,11 @@ void		div_pile(t_dbl **a, t_dbl **b, t_dbllist **lstactions)
 			ft_push_pile(a, b);
 			ft_lstdbladd(lstactions, "pb", 2);
 		}
+		// else if (sens_parc)
+		// {
+		// 	ft_rev_rot_pile(a);
+		// 	ft_lstdbladd(lstactions, "ra", 2);
+		// }
 		else
 		{
 			ft_rot_pile(a);
