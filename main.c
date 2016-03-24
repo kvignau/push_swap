@@ -85,29 +85,17 @@ int			main(int ac, char **av)
 		}
 		else if (a->length == 3)
 			smallmap(&a, &lstactions);
-		// else if (list_ok(a))
-		// {
-		// 	while (a->length > 1)
-		// 	{
-		// 		ft_rev_rot_pile(&a);
-		// 		ft_lstdbladd(&lstactions, "rra", 3);
-		// 		ft_push_pile(&a, &b);
-		// 		ft_lstdbladd(&lstactions, "pb", 2);
-		// 	}
-		// 	while (b->length > 0)
-		// 	{
-		// 		ft_push_pile(&b, &a);
-		// 		ft_lstdbladd(&lstactions, "pa", 2);
-		// 	}
-		// }
 		else
 		{
-			div_pile(&a, &b, &lstactions);
+			if (verif_tri_inv(a) > (a)->length / 4)
+				div_pile2(&a, &b, &lstactions);
+			else
+				div_pile(&a, &b, &lstactions);
 			push_swap(&a, &b, option, &lstactions);
 			push_swap2(&a, &b, option, &lstactions);
 		}
 	}
-	//ft_affiche_action(lstactions);
+	ft_affiche_action(lstactions);
 	if (option.n)
 		ft_printf("[{cyan}nb operation : %d{eoc}]\n\n", lstactions->length);
 	if (option.c)

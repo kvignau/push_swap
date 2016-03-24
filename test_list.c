@@ -111,3 +111,31 @@ int			verif_tri(t_dbl *lst, int *pos)
 	}
 	return (1);
 }
+
+int			verif_tri_inv(t_dbl *lst)
+{
+	t_node	*tmp;
+	int		pos;
+	int		max;
+
+	pos = 0;
+	max = 0;
+	if (lst->length == 0)
+		return (pos);
+	tmp = lst->head;
+	while (tmp->next)
+	{
+		if (tmp->value < tmp->next->value)
+		{
+			pos++;
+		}
+		else
+		{
+			if (max < pos)
+				max = pos;
+			pos = 0;
+		}
+		tmp = tmp->next;
+	}
+	return (pos);
+}
