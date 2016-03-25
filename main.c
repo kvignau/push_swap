@@ -81,7 +81,7 @@ int			main(int ac, char **av)
 		if ((a->length >= 2 && i == a->length - 1 && ft_min(a)))
 		{
 			ft_swap_pile(&a);
-			ft_lstdbladd(&lstactions, "sa", 2);
+			ft_lstdbladd(&lstactions, "sa\0", 3);
 		}
 		else if (a->length == 3)
 			smallmap(&a, &lstactions);
