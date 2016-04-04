@@ -44,6 +44,8 @@ int				ft_putelem(int i, int ac, char **av, t_dbl **a);
 
 int				gestion_option(int *i,
 				t_option *option, int ac, char **av);
+int				ft_param(char **av, t_option *option,
+				int *i, int j);
 void			init_option(t_option *opt);
 
 void			ft_affiche_pile(t_dbl *lst);
@@ -88,7 +90,12 @@ int				nb_in_first_part(t_dbl *a, int med);
 int				nb_in_sec_part(t_dbl *a, int med);
 int				verif_tri_inv(t_dbl *lst);
 
+void			ft_algo(t_dbl **a, t_dbl **b, t_dbllist **lstactions,
+				t_option option);
+
 //liste action
 void			ft_affiche_action(t_dbllist *lstactions);
+void			ft_display_type(t_option option, t_dbllist *lstactions,
+			t_dbl *a, t_dbl *b);
 
 #endif
