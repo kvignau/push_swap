@@ -105,9 +105,10 @@ void		div_pile2(t_dbl **a, t_dbl **b, t_dbllist **lstactions)
 	med = median_pile(*a);
 	val = (*a)->head->value;
 	tmp = (*a)->tail;
-	while (tmp && inf_med(*a, med))//val != tmp->value)//inf_med(*a, med))
+	while (tmp && inf_med(*a, med))
 	{
-		if (list_rev_ok(*a) && (*b)->tail && (*a)->tail->value > max_pile(*b))
+		if (list_rev_ok(*a) && (*b)->tail &&
+			(*a)->tail->value > max_pile(*b))
 			break ;
 		if (tmp->value < med)
 		{
@@ -144,7 +145,8 @@ void		div_pile(t_dbl **a, t_dbl **b, t_dbllist **lstactions)
 	tmp = (*a)->tail;
 	while (tmp && val != tmp->value)
 	{
-		if (list_rev_ok(*a) && (*b)->tail && (*a)->tail->value > max_pile(*b))
+		if (list_rev_ok(*a) && (*b)->tail &&
+			(*a)->tail->value > max_pile(*b))
 			break ;
 		if (tmp->value < med)
 		{

@@ -55,7 +55,8 @@ void		smallmap(t_dbl **a, t_dbllist **lstactions)
 			ft_rot_pile(a);
 			ft_lstdbladd(lstactions, "ra", 2);
 		}
-		else if ((*a)->tail->prev && (*a)->tail->prev->value < (*a)->tail->value)
+		else if ((*a)->tail->prev &&
+			(*a)->tail->prev->value < (*a)->tail->value)
 		{
 			ft_swap_pile(a);
 			ft_lstdbladd(lstactions, "sa", 2);

@@ -60,7 +60,7 @@ void			ft_push_pile(t_dbl **a, t_dbl **b);
 
 intmax_t		ft_atoi_imax(const char *str);
 
-int				list_ok(t_dbl *lst);
+// int				list_ok(t_dbl *lst);
 int				list_rev_ok(t_dbl *lst);
 int				ft_min_pile(t_dbl *a, int *pos);
 int				ft_max_pile(t_dbl *a, int *pos);
@@ -96,6 +96,6 @@ void			ft_algo(t_dbl **a, t_dbl **b, t_dbllist **lstactions,
 //liste action
 void			ft_affiche_action(t_dbllist *lstactions);
 void			ft_display_type(t_option option, t_dbllist *lstactions,
-			t_dbl *a, t_dbl *b);
+				t_dbl *a, t_dbl *b);
 
 #endif

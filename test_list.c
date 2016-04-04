@@ -59,22 +59,6 @@ int			ft_max_pile(t_dbl *a, int *pos)
 	return (max);
 }
 
-int			list_ok(t_dbl *lst)
-{
-	t_node	*tmp;
-
-	if (lst->length == 0)
-		return (1);
-	tmp = lst->head;
-	while (tmp->next)
-	{
-		if (tmp->value >= tmp->next->value)
-			return (0);
-		tmp = tmp->next;
-	}
-	return (1);
-}
-
 int			list_rev_ok(t_dbl *lst)
 {
 	t_node	*tmp;
