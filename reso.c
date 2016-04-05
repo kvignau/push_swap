@@ -68,3 +68,36 @@ void		smallmap(t_dbl **a, t_dbllist **lstactions)
 		}
 	}
 }
+
+void		div_pile(t_dbl **a, t_dbl **b, t_dbllist **lstactions)
+{
+	int		med;
+	int		val;
+	t_node	*tmp;
+
+	med = median_pile(*a);
+	val = (*a)->head->value;
+	tmp = (*a)->tail;
+	while (tmp && val != tmp->value)
+	{
+		if (list_rev_ok(*a) && (*b)->tail &&
+			(*a)->tail->value > max_pile(*b))
+			break ;
+		if (tmp->value < med)
+		{
+			ft_push_pile(a, b);
+			ft_lstdbladd(lstactions, "pb", 3);
+		}
+		else
+		{
+			ft_rot_pile(a);
+			ft_lstdbladd(lstactions, "ra", 3);
+		}
+		tmp = (*a)->tail;
+	}
+	if (tmp && tmp->value < med && (!list_rev_ok(*a)))
+	{
+		ft_push_pile(a, b);
+		ft_lstdbladd(lstactions, "pb", 3);
+	}
+}

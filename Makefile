@@ -14,7 +14,8 @@ NAME = push_swap
 
 FLAGS = -Wall -Wextra -Werror
 
-SRC = $(shell ls | grep ".c")
+SRC = action_algo.c main.c new_algo.c error.c test_list.c reso.c
+SRC += push_swap.c ft_ldbl.c display.c ft_atoi_imax.c
 
 OBJ = $(SRC:%.c=%.o)
 
