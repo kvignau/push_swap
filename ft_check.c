@@ -1,78 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   reso.c                                             :+:      :+:    :+:   */
+/*   ft_check.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kvignau <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/03/18 11:16:13 by kvignau           #+#    #+#             */
-/*   Updated: 2016/03/18 11:16:30 by kvignau          ###   ########.fr       */
+/*   Created: 2016/04/06 10:35:31 by kvignau           #+#    #+#             */
+/*   Updated: 2016/04/06 10:36:00 by kvignau          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int			max_pile(t_dbl *a)
+void		ft_algo(t_dbl **a, t_dbl **b, t_dbllist **lstactions,
+	t_option option)
 {
-	t_node	*tmp;
-	int		max;
-
-	tmp = a->head;
-	max = tmp->value;
-	tmp = tmp->next;
-	while (tmp)
-	{
-		if (tmp->value > max)
-			max = tmp->value;
-		tmp = tmp->next;
-	}
-	return (max);
-}
-
-int			ft_min(t_dbl *a)
-{
-	t_node	*tmp;
 	int		i;
 
 	i = 0;
-	tmp = a->head;
-	while (i < a->length - 2)
+	if (!verif_tri(*a, &i))
 	{
-		if (tmp->value < a->tail->value)
-			return (0);
-		tmp = tmp->next;
-		i++;
-	}
-	return (1);
-}
-
-void		smallmap(t_dbl **a, t_dbllist **lstactions)
-{
-	while (!(list_rev_ok(*a)))
-	{
-		if ((*a)->tail->value == max_pile(*a))
-			action_ra(a, lstactions);
-		else if ((*a)->tail->prev &&
-			(*a)->tail->prev->value < (*a)->tail->value)
+		if (((*a)->length >= 2 && i == (*a)->length - 1 && ft_min(*a)))
 		{
 			ft_swap_pile(a);
-			ft_lstdbladd(lstactions, "sa", 2);
+			ft_lstdbladd(lstactions, "sa", 3);
 		}
+		else if ((*a)->length == 3)
+			smallmap(a, lstactions);
 		else
 		{
-			ft_rev_rot_pile(a);
-			ft_lstdbladd(lstactions, "rra", 3);
+			if (verif_tri_inv(*a) > (*a)->length / 6)
+				div_pile2(a, b, lstactions);
+			else
+				div_pile(a, b, lstactions);
+			push_swap(a, b, option, lstactions);
+			push_swap2(a, b, option, lstactions);
 		}
 	}
 }
 
-void		div_pile(t_dbl **a, t_dbl **b, t_dbllist **lstactions)
+void		div_pile2(t_dbl **a, t_dbl **b, t_dbllist **lstactions)
 {
 	int		med;
 	t_node	*tmp;
 
 	tmp = (*a)->tail;
-	med = action_div(tmp, lstactions, a, b);
+	med = action_div2(tmp, lstactions, a, b);
 	if (tmp && tmp->value < med && (!list_rev_ok(*a)))
 	{
 		ft_push_pile(a, b);
@@ -80,15 +53,15 @@ void		div_pile(t_dbl **a, t_dbl **b, t_dbllist **lstactions)
 	}
 }
 
-int			action_div(t_node *tmp, t_dbllist **lstactions,
+int			action_div2(t_node *tmp, t_dbllist **lstactions,
 	t_dbl **a, t_dbl **b)
 {
 	int		med;
 	int		val;
 
-	val = (*a)->head->value;
 	med = median_pile(*a);
-	while (tmp && val != tmp->value)
+	val = (*a)->head->value;
+	while (tmp && inf_med(*a, med))
 	{
 		if (list_rev_ok(*a) && (*b)->tail &&
 			(*a)->tail->value > max_pile(*b))
@@ -98,9 +71,20 @@ int			action_div(t_node *tmp, t_dbllist **lstactions,
 			ft_push_pile(a, b);
 			ft_lstdbladd(lstactions, "pb", 3);
 		}
+		else if (sens_parcourt(*a, med))
+		{
+			ft_rev_rot_pile(a);
+			ft_lstdbladd(lstactions, "rra", 4);
+		}
 		else
 			action_ra(a, lstactions);
 		tmp = (*a)->tail;
 	}
 	return (med);
+}
+
+void		action_ra(t_dbl **a, t_dbllist **lstactions)
+{
+	ft_rot_pile(a);
+	ft_lstdbladd(lstactions, "ra", 3);
 }

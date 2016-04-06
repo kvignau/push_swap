@@ -76,6 +76,11 @@ void		ft_push_pile(t_dbl **a, t_dbl **b)
 		(*b)->tail = (*a)->tail;
 	}
 	(*a)->tail = tmp;
+	ft_realloc_push_pile(a, b);
+}
+
+void		ft_realloc_push_pile(t_dbl **a, t_dbl **b)
+{
 	if ((*a)->length > 1)
 		(*a)->tail->next = NULL;
 	else
@@ -85,31 +90,4 @@ void		ft_push_pile(t_dbl **a, t_dbl **b)
 	}
 	(*a)->length--;
 	(*b)->length++;
-}
-
-void		ft_algo(t_dbl **a, t_dbl **b, t_dbllist **lstactions,
-	t_option option)
-{
-	int		i;
-
-	i = 0;
-	if (!verif_tri(*a, &i))
-	{
-		if (((*a)->length >= 2 && i == (*a)->length - 1 && ft_min(*a)))
-		{
-			ft_swap_pile(a);
-			ft_lstdbladd(lstactions, "sa", 3);
-		}
-		else if ((*a)->length == 3)
-			smallmap(a, lstactions);
-		else
-		{
-			if (verif_tri_inv(*a) > (*a)->length / 6)
-				div_pile2(a, b, lstactions);
-			else
-				div_pile(a, b, lstactions);
-			push_swap(a, b, option, lstactions);
-			push_swap2(a, b, option, lstactions);
-		}
-	}
 }

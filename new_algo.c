@@ -92,44 +92,9 @@ int			nb_in_sec_part(t_dbl *a, int med)
 	return (cpt);
 }
 
-void		div_pile2(t_dbl **a, t_dbl **b, t_dbllist **lstactions)
+int			sens_parcourt(t_dbl *a, int med)
 {
-	int		med;
-	int		val;
-	t_node	*tmp;
-	int		sens_parc;
-
-	sens_parc = 0;
-	if (nb_in_firt_part(*a, med) > nb_in_sec_part(*a, med))
-		sens_parc++;
-	med = median_pile(*a);
-	val = (*a)->head->value;
-	tmp = (*a)->tail;
-	while (tmp && inf_med(*a, med))
-	{
-		if (list_rev_ok(*a) && (*b)->tail &&
-			(*a)->tail->value > max_pile(*b))
-			break ;
-		if (tmp->value < med)
-		{
-			ft_push_pile(a, b);
-			ft_lstdbladd(lstactions, "pb", 3);
-		}
-		else if (sens_parc)
-		{
-			ft_rev_rot_pile(a);
-			ft_lstdbladd(lstactions, "rra", 4);
-		}
-		else
-		{
-			ft_rot_pile(a);
-			ft_lstdbladd(lstactions, "ra", 3);
-		}
-		tmp = (*a)->tail;
-	}
-	if (tmp && tmp->value < med && (!list_rev_ok(*a)))
-	{
-		ft_push_pile(a, b);
-		ft_lstdbladd(lstactions, "pb", 3);
-	}
+	if (nb_in_firt_part(a, med) > nb_in_sec_part(a, med))
+		return (1);
+	return (0);
 }
