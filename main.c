@@ -45,10 +45,13 @@ int			ft_param(char **av, t_option *option, int *i, int j)
 		option->v = 1;
 	else if (av[*i][j] == 'n' && option->n == 0)
 		option->n = 1;
+	else if (av[*i][j] == 'l' && option->l == 0)
+		option->l = 1;
 	else
 	{
 		ft_printf("Options valables: \nv -> affichage listes");
-		ft_printf("intermediaires \nc -> ajout couleur alistes");
+		ft_printf("intermediaires \nc -> ajout couleur liste");
+		ft_printf("\nl -> affichage liste finale");
 		ft_printf("\nn -> nb opérations\n");
 		return (0);
 	}
@@ -60,17 +63,21 @@ void		init_option(t_option *opt)
 	opt->c = 0;
 	opt->v = 0;
 	opt->n = 0;
+	opt->l = 0;
 }
 
 void		ft_display_type(t_option option, t_dbllist *lstactions,
 	t_dbl *a, t_dbl *b)
 {
 	if (option.n)
-		ft_printf("[{cyan}nb operation : %d{eoc}]\n\n", lstactions->length);
-	if (option.c)
-		ft_affiche_color(a, b, 1);
-	else
-		ft_affiche(a, b);
+		ft_printf("[{cyan}nb operation : %d{eoc}]\n", lstactions->length);
+	if (option.l)
+	{
+		if (option.c)
+			ft_affiche_color(a, b, 1);
+		else
+			ft_affiche(a, b);
+	}
 }
 
 int			main(int ac, char **av)
@@ -91,7 +98,6 @@ int			main(int ac, char **av)
 		return (0);
 	if (!ft_same_nbr(a))
 		return (ft_print_error(&a));
-	ft_affiche(a, b);
 	lstactions = ft_lstdblnew();
 	ft_algo(&a, &b, &lstactions, option);
 	ft_affiche_action(lstactions);

@@ -18,6 +18,8 @@ void		ft_algo(t_dbl **a, t_dbl **b, t_dbllist **lstactions,
 	int		i;
 
 	i = 0;
+	if (option.l)
+		ft_affiche(*a, *b);
 	if (!verif_tri(*a, &i))
 	{
 		if (((*a)->length >= 2 && i == (*a)->length - 1 && ft_min(*a)))

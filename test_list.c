@@ -21,17 +21,17 @@ int			ft_min_pile(t_dbl *a, int *pos)
 	tmp = a->head;
 	cpt = 1;
 	min = tmp->value;
-	(*pos) = 1;
+	*pos = 1;
 	tmp = tmp->next;
 	while (tmp)
 	{
-		cpt++;
 		if (tmp->value < min)
 		{
 			min = tmp->value;
-			(*pos) = cpt;
+			*pos = cpt;
 		}
 		tmp = tmp->next;
+		cpt++;
 	}
 	return (min);
 }
@@ -110,9 +110,7 @@ int			verif_tri_inv(t_dbl *lst)
 	while (tmp->next)
 	{
 		if (tmp->value < tmp->next->value)
-		{
 			pos++;
-		}
 		else
 		{
 			if (max < pos)
@@ -121,5 +119,5 @@ int			verif_tri_inv(t_dbl *lst)
 		}
 		tmp = tmp->next;
 	}
-	return (pos);
+	return (max < pos) ? pos : max;
 }

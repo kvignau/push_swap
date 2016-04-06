@@ -58,7 +58,7 @@ void		ft_affiche_color(t_dbl *a, t_dbl *b, int ok)
 	ft_affiche_pile_color(a, ok);
 	ft_printf("\nliste b :");
 	ft_affiche_pile_color(b, ok);
-	ft_printf("\n");
+	ft_putstr("\n");
 }
 
 void		ft_affiche(t_dbl *a, t_dbl *b)
@@ -67,7 +67,7 @@ void		ft_affiche(t_dbl *a, t_dbl *b)
 	ft_affiche_pile(a);
 	ft_printf("\nliste b :");
 	ft_affiche_pile(b);
-	ft_printf("\n");
+	ft_putstr("\n");
 }
 
 void		ft_affiche_action(t_dbllist *lstactions)
@@ -77,7 +77,6 @@ void		ft_affiche_action(t_dbllist *lstactions)
 	tmp = lstactions->head;
 	if (!tmp)
 		return ;
-	ft_putstr("\n");
 	while (tmp->next)
 	{
 		ft_printf("%s ", tmp->content);
@@ -85,6 +84,5 @@ void		ft_affiche_action(t_dbllist *lstactions)
 	}
 	if (tmp)
 		ft_printf("%s", tmp->content);
-	ft_putstr("\n");
 	ft_putstr("\n");
 }

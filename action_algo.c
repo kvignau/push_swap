@@ -44,7 +44,7 @@ void		action_pile_a(t_dbl **a, int i, t_dbllist **lstactions)
 void		action_pile_b(t_dbl **a, t_dbl **b, int nb_push,
 	t_dbllist **lstactions)
 {
-	while (nb_push != 0)
+	while (nb_push >= 1)
 	{
 		ft_push_pile(b, a);
 		ft_lstdbladd(lstactions, "pa", 3);
@@ -88,6 +88,7 @@ void		push_swap2(t_dbl **a, t_dbl **b, t_option option,
 	{
 		action_fusion(b, i, lstactions);
 		ft_push_pile(b, a);
+		push_swap(a, b, option, lstactions);
 		ft_lstdbladd(lstactions, "pa", 3);
 		if (option.v)
 		{
