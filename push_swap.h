@@ -77,9 +77,6 @@ void				div_pile(t_dbl **a, t_dbl **b, t_dbllist **lstactions);
 int					action_div(t_node *tmp, t_dbllist **lstactions,
 					t_dbl **a, t_dbl **b);
 void				action_ra(t_dbl **a, t_dbllist **lstactions);
-void				div_pile2(t_dbl **a, t_dbl **b, t_dbllist **lstactions);
-int					action_div2(t_node *tmp, t_dbllist **lstactions,
-					t_dbl **a, t_dbl **b);
 int					sens_parcourt(t_dbl *a, int med);
 void				push_swap2(t_dbl **a, t_dbl **b, t_option option,
 					t_dbllist **lstactions);

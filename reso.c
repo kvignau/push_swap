@@ -88,7 +88,7 @@ int			action_div(t_node *tmp, t_dbllist **lstactions,
 
 	val = (*a)->head->value;
 	med = median_pile(*a);
-	while (tmp && val != tmp->value)
+	while (tmp && !(inf_med(*a, med)))
 	{
 		if (list_rev_ok(*a) && (*b)->tail &&
 			(*a)->tail->value > max_pile(*b))
@@ -97,6 +97,11 @@ int			action_div(t_node *tmp, t_dbllist **lstactions,
 		{
 			ft_push_pile(a, b);
 			ft_lstdbladd(lstactions, "pb", 3);
+		}
+		else if ((*a)->head->value < med)
+		{
+			ft_rev_rot_pile(a);
+			ft_lstdbladd(lstactions, "rra", 4);
 		}
 		else
 			action_ra(a, lstactions);
